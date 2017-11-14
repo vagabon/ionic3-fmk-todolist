@@ -73,7 +73,7 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
         });
       }
     }
-    let contentScrool = this.element.nativeElement.parentNode.parentNode.getElementsByClassName("scroll-content");
+    let contentScrool = this.element.nativeElement.parentNode.getElementsByClassName("scroll-content");
     if (contentScrool && contentScrool.length > 0) {
       if (!contentScrool[0].hasAttribute('done')) {
         contentScrool[0].setAttribute('done', 'true');
