@@ -63,14 +63,16 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
     for (var i = 0; i < ionScroll.length; i++) {
       if (!ionScroll[i].hasAttribute('done')) {
         ionScroll[i].setAttribute('done', 'true');
-        ionScroll[i].addEventListener('scroll', (event) => {
+        let doEvent = (event) => {
           if (!this.hide) {
             event.preventDefault();
             if (!this.platform.is('cordova')) {
               event.srcElement.scrollTo(0, 0);
             }
           }
-        });
+        };
+        ionScroll[i].addEventListener('scroll', doEvent);
+        ionScroll[i].addEventListener('touchmove', doEvent);
       }
     }
     let contentScrool = this.element.nativeElement.parentNode.getElementsByClassName("scroll-content");
