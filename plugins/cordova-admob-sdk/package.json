@@ -1,0 +1,74 @@
+{
+  "_from": "cordova-admob-sdk@~0.11.0",
+  "_id": "cordova-admob-sdk@0.11.1",
+  "_inBundle": false,
+  "_integrity": "sha512-Uq6es7Li/An2lhzkRACVPEvuBGu41BUA9XVU9+QIEa2uwo8QECGPXgInrY3Fa+qJT3eJBifyty/NSAwsAdaqxg==",
+  "_location": "/cordova-admob-sdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-admob-sdk@~0.11.0",
+    "name": "cordova-admob-sdk",
+    "escapedName": "cordova-admob-sdk",
+    "rawSpec": "~0.11.0",
+    "saveSpec": null,
+    "fetchSpec": "~0.11.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-admob-sdk/-/cordova-admob-sdk-0.11.1.tgz",
+  "_shasum": "a71cc0a764f8fa3187a400ee26504c8de0a796fb",
+  "_spec": "cordova-admob-sdk@~0.11.0",
+  "_where": "D:\\Projets\\TodoListIonic2\\node_modules",
+  "author": {
+    "name": "Ratson"
+  },
+  "bugs": {
+    "url": "https://github.com/rehy/cordova-admob-sdk/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-admob-sdk",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Google AdMob SDK to Cordova.",
+  "devDependencies": {
+    "sync-package-version": "0.0.5"
+  },
+  "files": [
+    "*.js",
+    "*.md",
+    "*.xml",
+    "LICENSE",
+    "src",
+    "www"
+  ],
+  "homepage": "https://github.com/rehy/cordova-admob-sdk#readme",
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "ad",
+    "admob",
+    "google",
+    "sdk"
+  ],
+  "license": "MIT",
+  "name": "cordova-admob-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rehy/cordova-admob-sdk.git"
+  },
+  "scripts": {
+    "version": "sync-package-version --cordova-plugin"
+  },
+  "version": "0.11.1"
+}
