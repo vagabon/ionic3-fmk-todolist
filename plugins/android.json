@@ -1,0 +1,37 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.paypal.cordova.mobilesdk": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-ionic-webview": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        }
+    },
+    "dependent_plugins": {
+        "card.io.cordova.mobilesdk": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        }
+    }
+}

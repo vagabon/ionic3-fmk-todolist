@@ -1,16 +1,120 @@
-// http://ionicframework.com/docs/theming/
+*{ box-sizing: border-box; }
+body { margin: 0; }
+body, ion-content, .fixed-content { background: url(../assets/imgs/images.jpg); }
+img { background: grey; color: white; text-align: center; user-drag: none; user-select: none; -moz-user-select: none; -webkit-user-drag: none; -webkit-user-select: none; -ms-user-select: none;}
 
+.flex { display: flex; }
+.flex1 { flex: 1 }
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+expandable-header {
+  display: block; background: color($colors, primary); overflow: hidden;
+  ion-segment { height: 61px; }
+}
+.responsiveHeader { margin: auto; max-width: 800px; }
+.back-button { position: absolute; width: 10px; min-width: 10px; .button-inner { width: 50%; } }
+app-expandable-image {
+  width: 100%;
+  img { position: absolute; height: 500px; width: 100%; background: transparent; opacity: 0.5; }
+  div { minHeight: 180px; }
+}
+
+.scroll-content { margin: auto; width: 100%; max-width: 800px; display: flex; flex-direction: column; overflow: hidden; }
+.content-scrool-flex { flex: 1; display: flex; height: auto; flex-direction: column; overflow: auto; flex-flow: wrap; }
+app-content-scroll { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+app-review-list { width: 100%; height: 100%; flex: 1; display: flex; flex-direction: column; }
+.tabs-md .tabbar { background: color($colors, primary); color: #ffffff !important; border-top: 1px solid rgba(147, 0, 0, 0.3); display: flex; justify-content: center; }
+.tabs-md .tab-button, .tabs-md .tab-button .tab-button-icon { max-width: 200px; }
+.tab-button { -ms-flex: none; width: 100%; }
+.tabs-md .tab-button { &, .tab-button-icon { color: rgba(255, 255, 255, 0.3); } }
+.tabs-md .tab-button[aria-selected=true] { border-top: 2px solid;  &, .tab-button-icon { color: #FFFFFF; } }
+.toolbar-content-md { display: flex; }
+.toolbar-background-md { background: color($colors, primary); }
+.bar-button-default-md { color: #ffffff; }
+.toolbar-title { color: #FFFFFF; }
+.logo { background: transparent; width: 40px; background: transparent; height: 35px; margin-left: 25px; }
+ion-title { width: calc(100% - 60px); }
+.ion-title { display: flex; flex: 1; align-items: center; transform: translateZ(0); width: calc(100% - 60px); }
+ion-searchbar.searchbar-md { padding: 0 34px 0 21px; height: 60px; background: rgba(52, 66, 79, 0.3);  }
+ion-spinner { margin: 0 auto; z-index: 2000; * { width: 50px !important; height: 50px !important; stroke: #FFFFFF; fill: #FFFFFF; } }
+ion-segment { background: #34424F; }
+.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated { border-color: #FFFFFF; }
+.segment-md .segment-button { color: #FFFFFF; }
+ion-slide { .slide-zoom { width: 100%; height: 100%; display: flex; flex-direction: column; text-align: left; } }
+.swiper-pagination-bullet-active { background: color($colors, primary); }
+
+ion-card {
+  position: relative;
+  &.width50 { width: calc(50% - 20px); }
+  ion-item:first-child {
+    background: color($colors, primary);
+    .button-clear-md { color: #ffffff; }
+  }
+}
+
+.card-md {
+  h2 { color: #FFFFFF; }
+  .item p { color: #d6d6d6; }
+  & + ion-card { margin-top: 10px; }
+}
+.card-content-md { padding: 0; margin: 0; }
+
+.toggle-md .toggle-icon { background-color: darkgrey; }
+
+// TAB ANIMATION !
+.forceBlock { display: block !important; z-index: 1; }
+.slideLeft, .slideRight { z-index: 2; animation-duration: 0.5s; -webkit-animation-duration: 0.5s; animation-timing-function: ease-in-out; -webkit-animation-timing-function: ease-in-out; }
+
+.slideLeft{ animation-name: slideLeft; -webkit-animation-name: slideLeft; }
+.slideRight{ animation-name: slideRight; -webkit-animation-name: slideRight; }
+
+@keyframes slideLeft {
+  0% { transform: translateX(150%); }
+  100%{ transform: translateX(0%); }
+}
+
+@-webkit-keyframes slideLeft {
+  0% { -webkit-transform: translateX(150%); }
+  100%{ -webkit-transform: translateX(0%); }
+}
+
+@keyframes slideRightHide {
+  0% { transform: translateX(0%); }
+  100%{ transform: translateX(-150%); }
+}
+
+@-webkit-keyframes slideRightHide {
+  0% { -webkit-transform: translateX(0%); }
+  100%{ -webkit-transform: translateX(-150%); }
+}
+
+@keyframes slideRight {
+  0% { transform: translateX(-150%); }
+  100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slideRight {
+  0% { -webkit-transform: translateX(-150%); }
+  100% { -webkit-transform: translateX(0%); }
+}
+
+@media screen and (max-width: 800px) {
+  .tab-button { -ms-flex: 1; }
+  app-information {
+    .filmographie {
+      height: 115px;
+    }
+    .cast-member {
+      height: 180px;
+    }
+    .button-md { height: 2.6rem; font-size: 1.1rem; }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movie-content, .cinema-content { font-size: 1rem; }
+  p, .card-md, .card-md p, .card-content-md, .label { font-size: 1rem; line-height: 1.1rem; }
+}
+
+@media only screen and (max-height: 500px) and (orientation: landscape) {
+  .tabs-md .tabbar { display: none; }
+}

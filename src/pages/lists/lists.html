@@ -1,0 +1,15 @@
+
+<expandable-header title="Mes Listes" [search]="search" (searchChangeEmitter)="search = $event" (searchEmitter)="loadListes()">
+</expandable-header>
+
+<ion-content>
+
+  <button ion-button full>Ajouter une tâche</button>
+  <app-expandable-image img="assets/imgs/notes.png" altImg="Notes" heightHeader="140" ></app-expandable-image>
+
+
+  <app-content-scroll notFound="Pas de listes trouvées" (loadMoreEmitter)="loadMore()" [loading]="loading" [list]="lists" [search]="search">
+
+  </app-content-scroll>
+
+</ion-content>

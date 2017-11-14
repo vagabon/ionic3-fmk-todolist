@@ -1,0 +1,28 @@
+{
+  "BACK_BUTTON_TEXT": "Retour",
+
+  "TAB_SERIE_TITLE": "Séries",
+  "TAB_MOVIE_TITLE": "Films",
+  "TAB_ACTOR_TITLE": "Acteurs",
+  "TAB_CINEMA_TITLE": "Cinéma",
+
+  "TITLE_PARAMS": "Paramètre",
+
+  "PARAMS_DELETE_DATA": "Supprimer les données",
+  "PARAMS_TEXT": "Retrouvez des informations sur vos films, séries et acteurs préférés.<p>&nbsp;</p>Les données proviennent principalement d'<a href='http://www.allocine.fr/'>AlloCiné</a>, mais peuvent être étoffées par d'autres sources comme <a href='http://www.themoviedb.org'>TheMovieDB</a>.",
+  "PARAMS_BIENVENUE": "Bienvenue",
+  "PARAMS_LANGUAGE": "Langue",
+  "PARAMS_FRENCH": "French",
+  "PARAMS_ENGLISH": "English",
+
+  "TUTORIAL_SLIDE1_TITLE": "Bienvenue sur CinéTchiCha",
+  "TUTORIAL_SLIDE1_DESCRIPTION": "<h1>CinéTchiCha</h1> vous propose de retrouver des informations sur vos films, séries et acteurs préférés.",
+
+  "TUTORIAL_SLIDE2_TITLE": "Une utilisation intuitive",
+  "TUTORIAL_SLIDE2_DESCRIPTION": "4 onglets sont disponibles pour rechercher des films, des séries tv, dee acteurs, ainsi que les séances des cinémas près de chez vous.",
+
+  "TUTORIAL_SLIDE3_TITLE": "De multiples sources",
+  "TUTORIAL_SLIDE3_DESCRIPTION": "Les données proviennent principalement d'<a href='http://www.allocine.fr/'>AlloCiné</a>, mais peuvent être étoffées par d'autres sources comme <a href='http://www.themoviedb.org'>TheMovieDB</a>.",
+
+  "TUTORIAL_CONTINUE_BUTTON": "Commencer"
+}

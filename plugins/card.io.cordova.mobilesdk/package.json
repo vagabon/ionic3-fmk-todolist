@@ -1,0 +1,64 @@
+{
+  "_from": "card.io.cordova.mobilesdk@2.1.0",
+  "_id": "card.io.cordova.mobilesdk@2.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-WDuTBvbyirVM2dLIn8Ne2T6FFIg=",
+  "_location": "/card.io.cordova.mobilesdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "card.io.cordova.mobilesdk@2.1.0",
+    "name": "card.io.cordova.mobilesdk",
+    "escapedName": "card.io.cordova.mobilesdk",
+    "rawSpec": "2.1.0",
+    "saveSpec": null,
+    "fetchSpec": "2.1.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/card.io.cordova.mobilesdk/-/card.io.cordova.mobilesdk-2.1.0.tgz",
+  "_shasum": "583b9306f6f28ab54cd9d2c89fc35ed93e851488",
+  "_spec": "card.io.cordova.mobilesdk@2.1.0",
+  "_where": "D:\\Projets\\TodoListIonic2\\node_modules",
+  "author": {
+    "name": "card.io"
+  },
+  "bugs": {
+    "url": "https://github.com/card-io/card.io-Cordova-Plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "card.io.cordova.mobilesdk",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "This plugin allows to add card.io scanning capabilities to your application using card.io SDK Native library",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/card-io/card.io-Cordova-Plugin#readme",
+  "keywords": [
+    "card.io",
+    "sdk",
+    "card-scanning",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "license": "MIT License, see LICENSE for details",
+  "name": "card.io.cordova.mobilesdk",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/card-io/card.io-Cordova-Plugin.git"
+  },
+  "version": "2.1.0"
+}
