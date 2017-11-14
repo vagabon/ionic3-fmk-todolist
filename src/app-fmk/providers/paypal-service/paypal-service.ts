@@ -4,6 +4,7 @@ import {PayPal, PayPalConfiguration, PayPalPayment} from "@ionic-native/paypal";
 import {BaseServiceProvider} from "../base-service";
 import {DataFmkServiceProvider} from "../data-fmk-service/data-fmk-service";
 import {Observable} from "rxjs/Observable";
+import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
 
 /*
   Service pour le paiment Paypall.
@@ -11,27 +12,27 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class PaypalServiceProvider {
 
-  constructor(protected baseService:BaseServiceProvider, protected dataService: DataFmkServiceProvider, private payPal: PayPal) {
+  constructor(protected baseService:BaseServiceProvider, protected dataService: DataFmkServiceProvider, private payPal: PayPal, private configService:ConfigFmkServiceProvider) {
   }
 
-  getPaypalPaimentFromCordova() {
+  getPaypalPaimentFromCordova(json = {
+    price: this.configService.API_PAYPAL_PRICE,
+    currency: this.configService.API_PAYPAL_CURRENCY,
+    name: this.configService.API_PAYPAL_NAME,
+  }) {
     return Observable.create(observer => {
       this.payPal.init({
-        PayPalEnvironmentProduction: 'ATyJ-xye8oqzE_OiLrXVgzmATjlao4tXqwpga-imxq2KIHIiCmKk12dxkUI7JyYJXP2omZ7OmaxWA_sS',
-        PayPalEnvironmentSandbox: 'AZ532JVCQApMc5-e3cmFNXUP_ZcCeGntywOkCg5LzrN8IH5-tNo3c-tJB403ZShm1yxzsuMQS4QLpQ55'
+        PayPalEnvironmentProduction: this.configService.API_PAYPAL_KEY,
+        PayPalEnvironmentSandbox: this.configService.API_PAYPAL_SANDBOX_KEY
       }).then(() => {
-        // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-        this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({})).then(() => {
-          let payment = new PayPalPayment('5', 'EUR', 'Donnation CinéTchiCha', 'sale');
+        this.payPal.prepareToRender(this.configService.API_PAYPAL_MOBILE_ENVIRONMENTS, new PayPalConfiguration({})).then(() => {
+          let payment = new PayPalPayment(json.price, json.currency, json.name, 'sale');
           this.payPal.renderSinglePaymentUI(payment).then((response) => {
             console.log("renderSinglePaymentUI Paypal", response);
-            //   "client": { "environment": "sandbox", "product_name": "PayPal iOS SDK", "paypal_sdk_version": "2.16.0", "platform": "iOS" },
-            //   "response_type": "payment",
-            //   "response": { "id": "PAY-1AB23456CD789012EF34GHIJ", "state": "approved", "create_time": "2016-10-03T13:33:33Z", "intent": "sale" }
             let paypalPaiment = {
-              amt: '5',
-              cc: 'EUR',
-              itemName: 'Donation Android CinéTchiCha',
+              amt: json.price,
+              cc: json.currency,
+              itemName: json.name,
               st: '' + response.response.state,
               tx: '' + response.response.id,
               userUsed: true,
@@ -67,7 +68,7 @@ export class PaypalServiceProvider {
             console.log('paypal paiment déjà consommé', data);
           }
         }
-      }, (error) => {
+      }, () => {
         console.error('Paypal Paiement not found : ', paypalId)
       });
     });
