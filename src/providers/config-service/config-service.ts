@@ -9,7 +9,7 @@ export class ConfigServiceProvider {
   API_FACEBOOK_TEST: string = '116657432071061';
   API_FACEBOOK_PROD: string = '';
 
-  API_ADMOB_BANNIER: string = 'ca-app-pub-6760229630893031/5081528497';
+  API_ADMOB_BANNIER: string = 'ca-app-pub-6760229630893031/8737211204';
 
   API_GOOGLE_ANALYTICS: string = 'UA-109185979-2';
 

@@ -13,7 +13,7 @@ import {ConfigServiceProvider} from '../providers/config-service/config-service'
 import {ConfigFmkServiceProvider} from "../app-fmk/providers/config-fmk-service/config-fmk-service";
 import {VagabondIonic2FmkModule} from "../app-fmk/vagabond-ionic-fmk.module";
 import {DataFmkServiceProvider} from "../app-fmk/providers/data-fmk-service/data-fmk-service";
-import { MyApp } from './app.component';
+import {MyApp} from './app.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -69,4 +69,5 @@ export function getLocationStategy() {
     }).providers
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

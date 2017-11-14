@@ -2,6 +2,7 @@ import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, Ren
 import {NavController} from "ionic-angular";
 import {FacebookServiceProvider} from "../../providers/facebook-service/facebook-service";
 import {ConfigFmkServiceProvider} from "../../providers/config-fmk-service/config-fmk-service";
+import {Platform} from "ionic-angular/platform/platform";
 
 @Component({
   selector: 'expandable-header',
@@ -42,7 +43,8 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
   scrollTop: number = 0;
   hide: boolean = false;
 
-  constructor(protected navCtrl: NavController, public element: ElementRef, public renderer: Renderer2, private facebookService: FacebookServiceProvider, private configService:ConfigFmkServiceProvider) {
+  constructor(protected navCtrl: NavController, public element: ElementRef, public renderer: Renderer2, private facebookService: FacebookServiceProvider,
+              private configService:ConfigFmkServiceProvider, private platform:Platform) {
   }
 
   ngOnInit(){
@@ -64,7 +66,9 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
         ionScroll[i].addEventListener('scroll', (event) => {
           if (!this.hide) {
             event.preventDefault();
-            event.srcElement.scrollTo(0, 0);
+            if (!this.platform.is('cordova')) {
+              event.srcElement.scrollTo(0, 0);
+            }
           }
         });
       }

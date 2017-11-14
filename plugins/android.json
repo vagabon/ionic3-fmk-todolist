@@ -27,10 +27,19 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-admob-free": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
         }
     },
     "dependent_plugins": {
         "card.io.cordova.mobilesdk": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-promise-polyfill": {
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-admob-sdk": {
             "PACKAGE_NAME": "vagabond.app.mysimplelist"
         }
     }
