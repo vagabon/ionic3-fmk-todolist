@@ -15,17 +15,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-facebook4": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-facebook4@^1.9.1"
-        },
-        "is_top_level": true,
-        "variables": {
-            "APP_ID": "187129178501724",
-            "APP_NAME": "FacebookTest"
-        }
-    },
     "cordova-plugin-admob-free": {
         "source": {
             "type": "registry",
@@ -105,5 +94,16 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "cordova-plugin-facebook4": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-facebook4"
+        },
+        "is_top_level": true,
+        "variables": {
+            "APP_ID": "1969648299943798",
+            "APP_NAME": "MySimpleList"
+        }
     }
 }

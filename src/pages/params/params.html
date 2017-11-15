@@ -1,0 +1,83 @@
+<!--
+  Affichage des paramètre.
+-->
+<expandable-header title="TITLE_PARAMS" close="true"></expandable-header>
+
+<ion-content>
+
+  <ion-card class="label">
+    <ion-item>
+      <h2>MySimpleList</h2>
+      <ion-badge color="secondary" big item-end>UserId : {{dataService.data.id}}</ion-badge>
+      <ion-badge color="secondary" big item-end>v1.0</ion-badge>
+    </ion-item>
+    <ion-card-content>
+      <div style="display: flex" padding>
+        <img src="assets/icon/logo_black.png" style=" width: 20%; height: 20%; background: transparent;">
+        <div style="width: 60%; flex: 1; padding: 0px 5px; text-align: justify;" [innerHtml]="'PARAMS_TEXT' | translate"></div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="dataService.data.facebookAccessToken == ''" style="padding: 0; background: transparent; box-shadow: none; margin: 0 10px;">
+    <button ion-button full (click)="facebookService.loginWithFacebook()" style="background: #4267b2;">Login Facebook</button>
+  </ion-card>
+  <ion-card class="label" *ngIf="dataService.data.facebookAccessToken != ''" style="margin: 0 10px;">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{dataService.data.facebookPicture}}">
+      </ion-avatar>
+      <h2>{{'PARAMS_BIENVENUE' | translate}} <b>{{dataService.data.facebookName}}</b></h2>
+      <button ion-button (click)="facebookService.logoutWithFacebook()" item-end style="margin: 0; padding: 5px; box-shadow: none;">
+        <ion-icon name="close" item-start></ion-icon>
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="donate === false" style="padding: 0; background: transparent; box-shadow: none;">
+    <button ion-button full (click)="doPaypalPaiementCordova()" style="background: #FFA926;" *ngIf="isCordova()">Donate with Paypall</button>
+
+    <form #form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="width: 100%; position: relative;" *ngIf="!isCordova() && !isLocal()">
+      <input type="hidden" name="cmd" value="_s-xclick">
+
+      <input type="hidden" name="hosted_button_id" value="FNCNFN7GNR23S">
+      <button ion-button full (click)="form.submit()" style="background: #FFA926;">Donate with Paypall</button>
+    </form>
+
+    <form #form2 action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" style="width: 100%; position: relative;" *ngIf="!isCordova() && isLocal()">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="J68LDYC6MBP9C">
+      <input type="hidden" value="https://vagabond.synology.me/apiallocine/getPaypalPaiment.php" name="return">
+      <input type="hidden" value="2" name="rm">
+      <button ion-button full (click)="form2.submit()" style="background: #FFA926;">Donate with Paypall</button>
+    </form>
+  </ion-card>
+  <ion-card *ngIf="donate" style="text-align: center; padding: 15px 5px; background: #FFA926; color: white; font-weight: bold;">
+    <h2 style="color: white">Merci pour votre donation :)</h2>
+  </ion-card>
+
+  <app-content-scroll>
+    <ion-list style="width: 100%;">
+      <ion-item>
+        <ion-icon name="refresh" item-start></ion-icon>
+        <ion-label> {{'PARAMS_DELETE_DATA' | translate}}</ion-label>
+        <ion-toggle [(ngModel)]="reset" color="secondary" (ionChange)="doReset()"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-list radio-group [(ngModel)]="language" (ionChange)="doChangeLanguage()" style="width: 100%">
+      <ion-list-header>
+        {{'PARAMS_LANGUAGE' | translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label color="dark">{{'PARAMS_FRENCH' | translate}}</ion-label>
+        <ion-radio value="fr"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label color="dark">{{'PARAMS_ENGLISH' | translate}}</ion-label>
+        <ion-radio value="en"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <div class="flex1"></div>
+  </app-content-scroll>
+</ion-content>

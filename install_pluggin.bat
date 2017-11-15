@@ -15,7 +15,7 @@ call npm install --save @ionic-native/google-analytics
 call npm install --save-dev @types/google.analytics
 
 
-call ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="187129178501724" --variable APP_NAME="FacebookTest"
+call ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="1969648299943798" --variable APP_NAME="MySimpleList"
 
 call npm install --save @ionic-native/facebook
 

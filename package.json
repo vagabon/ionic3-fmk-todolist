@@ -66,16 +66,16 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-google-analytics": {},
             "cordova-plugin-admob-free": {},
-            "cordova-plugin-facebook4": {
-                "APP_ID": "187129178501724",
-                "APP_NAME": "FacebookTest"
-            },
             "com.paypal.cordova.mobilesdk": {},
             "cordova-plugin-device": {},
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {}
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-facebook4": {
+                "APP_ID": "1969648299943798",
+                "APP_NAME": "MySimpleList"
+            }
         }
     }
 }

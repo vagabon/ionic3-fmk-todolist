@@ -1,0 +1,5 @@
+page-params {
+  .item-md { background: transparent }
+  .list-header-md { margin-top: 10px; font-weight: bold; border-top : 1px dotted color($colors, primary); border-bottom: 1px dotted color($colors, primary); color: color($colors, primary); }
+  .content-scrool-flex { flex-flow: column; }
+}

@@ -20,6 +20,25 @@ export class AlertServiceProvider {
     alert.present();
   }
 
+  showConfirm(title: string, message: string, doNext) {
+    let confirm = this.alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: [
+        {
+          text: 'Annuler'
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            doNext();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
   presentPopover(page, myEvent) {
     this.popover = this.popoverCtrl.create(page);
     this.popover.present({ ev: myEvent });
@@ -28,5 +47,4 @@ export class AlertServiceProvider {
     let modal = this.modalCtrl.create(page, data);
     modal.present();
   }
-
 }

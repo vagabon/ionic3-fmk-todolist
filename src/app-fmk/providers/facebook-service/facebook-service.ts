@@ -3,6 +3,7 @@ import {FacebookService} from "ngx-facebook";
 import {Facebook} from "@ionic-native/facebook";
 import {BaseServiceProvider} from "../base-service";
 import {DataFmkServiceProvider} from "../data-fmk-service/data-fmk-service";
+import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
 
 /*
   Service pour la gestion de facebook.
@@ -12,7 +13,7 @@ export class FacebookServiceProvider {
 
   mainService: any;
 
-  constructor(private baseService:BaseServiceProvider, private dataService:DataFmkServiceProvider, private facebookService: FacebookService, private facebookCordova:Facebook) {
+  constructor(private baseService:BaseServiceProvider, private dataService:DataFmkServiceProvider, private facebookService: FacebookService, private facebookCordova:Facebook, private configService:ConfigFmkServiceProvider) {
     if (!this.baseService.platform.is('cordova')) {
       this.mainService = this.facebookService;
       this.facebookService.init({
@@ -84,10 +85,10 @@ export class FacebookServiceProvider {
   }
 
   share(json = {
-    title: 'CinéTchiCha',
-    url: 'https://cinetchicha.fr',
-    image: 'http://cinetchicha.fr/assets/imgs/logo.png',
-    description: 'CinéTchiCha vous propose de rechercher vos films, séries et acteurs préférés, ainsi que les séances des cinémas près de chez vous.'
+    title: this.configService.API_FACEBOOK_TITLE,
+    url: this.configService.API_FACEBOOK_URL,
+    image: this.configService.API_FACEBOOK_IMAGE,
+    description: this.configService.API_FACEBOOK_DESCRIPTION,
   }) {
     if (this.baseService.platform.is('cordova')) {
       var options = {

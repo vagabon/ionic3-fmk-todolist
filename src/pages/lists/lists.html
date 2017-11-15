@@ -1,14 +1,36 @@
 
-<expandable-header title="Mes Listes" [search]="search" (searchChangeEmitter)="search = $event" (searchEmitter)="loadListes()">
+<expandable-header title="Mes Listes" [search]="search" (searchChangeEmitter)="search = $event" (searchEmitter)="doLoadList()">
 </expandable-header>
 
 <ion-content>
 
-  <button ion-button full>Ajouter une tâche</button>
+  <button ion-button full (click)="doCreate()">Ajouter une tâche</button>
+
   <app-expandable-image img="assets/imgs/notes.png" altImg="Notes" heightHeader="140" ></app-expandable-image>
 
-
   <app-content-scroll notFound="Pas de listes trouvées" (loadMoreEmitter)="loadMore()" [loading]="loading" [list]="lists" [search]="search">
+
+    <ion-list style="width: 100%;">
+      <!--(ionItemReorder)=""-->
+      <ion-item-group reorder="true" (ionItemReorder)="doReorderItemsList($event)">
+      <ion-item-sliding #itemSelect *ngFor="let item of dataService.data.lists" (click)="doSelectItemList(item)" [style.borderLeft]="'10px solid ' + item.color">
+        <ion-item>
+          {{item.name}}
+          <p>{{item.date | date: 'dd/MM/yyyy' }}</p>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button (click)="doModifyItemList(item, itemSelect)">
+            <ion-icon name="archive"></ion-icon>
+            Modifier
+          </button>
+          <button ion-button color="danger" (click)="doDeleteItemList(item, itemSelect)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      </ion-item-group>
+    </ion-list>
 
   </app-content-scroll>
 

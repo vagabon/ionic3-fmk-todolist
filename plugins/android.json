@@ -30,6 +30,11 @@
         },
         "cordova-plugin-admob-free": {
             "PACKAGE_NAME": "vagabond.app.mysimplelist"
+        },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "1969648299943798",
+            "APP_NAME": "MySimpleList",
+            "PACKAGE_NAME": "vagabond.app.mysimplelist"
         }
     },
     "dependent_plugins": {

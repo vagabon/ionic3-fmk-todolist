@@ -99,7 +99,6 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
     } else if (when === 'end') {
       const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
       let scrollTop = Math.floor((direction[1] * -1));
-
       let element = event.target;
       let canSlide = true;
       while (element.parentElement) {
@@ -155,14 +154,11 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
   resizeHeader(scrollTop){
     this.calculateHeigth();
     this.scrollTop += scrollTop;
-    this.newHeaderHeight = Math.floor(this.headerHeight - (this.scrollTop));
-    if(this.newHeaderHeight < 0){
-      this.newHeaderHeight = 0;
-    }
-    if(this.newHeaderHeight > this.headerHeight){
-      this.newHeaderHeight = this.headerHeight;
+    if (this.scrollTop < 0) {
       this.scrollTop = 0;
     }
+    let min = 0;
+    let number = 0;
     // on diminue l'image sous le header
     if (this.element.nativeElement.parentNode.getElementsByClassName("expandable-header-page")) {
       let expandableheaderPage = this.element.nativeElement.parentNode.getElementsByClassName("expandable-header-page");
@@ -172,8 +168,8 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
           minHeight = expandableheaderPage[0].offsetHeight;
           expandableheaderPage[0].setAttribute('minHeight', minHeight);
         }
-        let min = parseInt(minHeight ? minHeight : 180);
-        let number = this.newHeaderHeight == 0 ? (min - (this.scrollTop - this.headerHeight)) : min;
+        min = parseInt(minHeight ? minHeight : 180);
+        number = min - (this.scrollTop);
         if (number < 0) {
           number = 0;
           this.hide = true;
@@ -181,7 +177,31 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
           this.hide = false;
         }
         this.renderer.setStyle(expandableheaderPage[0], 'min-height', number + 'px');
+      } else {
+        number = 0;
+        if (this.newHeaderHeight <= 0) {
+          this.hide = true;
+        } else {
+          this.hide = false;
+        }
       }
+    }
+    if (number == 0) {
+      let diff = this.scrollTop - min;
+      if (diff < 30) {
+        diff = 60;
+        this.scrollTop += min - 60;
+      }
+      this.newHeaderHeight = Math.floor(this.headerHeight - diff);
+      if(this.newHeaderHeight < 0){
+        this.newHeaderHeight = 0;
+        this.scrollTop -= scrollTop;
+      }
+      if(this.newHeaderHeight > this.headerHeight){
+        this.newHeaderHeight = this.headerHeight;
+      }
+    } else {
+      this.newHeaderHeight = this.headerHeight;
     }
     this.initHeigth(this.newHeaderHeight);
   }
