@@ -116,11 +116,11 @@ ionic generate provider ConfigService (change const from ConfigFmkServiceProvide
 example of .html
 
   > <expandable-header title="{{TITLE | translate}}"><br/>
-    </expandable-header><br/><br/>
-    <ion-content><br/>
-    &nbsp;&nbsp;<app-content-scroll notFound="{{NO_ITEM_FOUND | translate}}" [loading]="loading" [list]="lists"><br/>
-    &nbsp;&nbsp;</app-content-scroll>
-    </ion-content>
+  > </expandable-header><br/><br/>
+  > <ion-content><br/>
+  > &nbsp;&nbsp;<app-content-scroll notFound="{{NO_ITEM_FOUND | translate}}" [loading]="loading" [list]="lists"><br/>
+  > &nbsp;&nbsp;</app-content-scroll>
+  > </ion-content>
 
 example of Compenent .ts
   > @IonicPage()<br/>
