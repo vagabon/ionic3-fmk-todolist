@@ -124,14 +124,14 @@ example of .html
 
 example of Compenent .ts
   > @IonicPage()<br/>
-    @Component({<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;selector: 'page-lists',<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;templateUrl: 'lists.html'<br/>
-    })<br/>
-    export class ListsPage {<br/>  
-    &nbsp;&nbsp;&nbsp;&nbsp;search: string = "";<br/><br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;constructor(private gAService:GoogleAnalyticsServiceProvider, private dataService:DataFmkServiceProvider, private alertService:AlertServiceProvider) {<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.gAService.sendPageView("ListsPage");<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>    
-    ...<br/>
-    }<br/>
+  > @Component({<br/>
+  > &nbsp;&nbsp;&nbsp;&nbsp;selector: 'page-lists',<br/>
+  > &nbsp;&nbsp;&nbsp;&nbsp;templateUrl: 'lists.html'<br/>
+  > })<br/>
+  > export class ListsPage {<br/>  
+  > &nbsp;&nbsp;&nbsp;&nbsp;search: string = "";<br/><br/>
+  > &nbsp;&nbsp;&nbsp;&nbsp;constructor(private gAService:GoogleAnalyticsServiceProvider, private dataService:DataFmkServiceProvider, private alertService:AlertServiceProvider) {<br/>
+  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.gAService.sendPageView("ListsPage");<br/>
+  > &nbsp;&nbsp;&nbsp;&nbsp;}<br/>    
+  > ...<br/>
+  > }<br/>

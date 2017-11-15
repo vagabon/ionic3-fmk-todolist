@@ -1,4 +1,5 @@
 call npm install @ngx-translate/core --save
+
 call npm install @ngx-translate/http-loader --save
 
 call ionic cordova plugin add cordova-plugin-geolocation --save
@@ -13,7 +14,6 @@ call ionic cordova plugin add cordova-plugin-google-analytics
 call npm install --save @ionic-native/google-analytics
 
 call npm install --save-dev @types/google.analytics
-
 
 call ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="1969648299943798" --variable APP_NAME="MySimpleList"
 
