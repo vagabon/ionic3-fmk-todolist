@@ -21,11 +21,14 @@ export class DataFmkServiceProvider {
     facebookName: '',
     facebookPicture: '',
     facebookMail: ''
-  }
+  };
 
-  data = JSON.parse(JSON.stringify(this.dataInit))
+  dataApp = {
+  };
 
-  constructor(protected baseService:BaseServiceProvider) {
+  data = JSON.parse(JSON.stringify(this.dataInit));
+
+  constructor(public baseService:BaseServiceProvider) {
     if (typeof localStorage === 'object') {
       try {
         localStorage.setItem('localStorage', "1");

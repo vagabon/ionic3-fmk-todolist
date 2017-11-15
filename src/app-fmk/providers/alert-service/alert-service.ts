@@ -20,13 +20,18 @@ export class AlertServiceProvider {
     alert.present();
   }
 
-  showConfirm(title: string, message: string, doNext) {
+  showConfirm(title: string, message: string, doNext, doClose = null) {
     let confirm = this.alertCtrl.create({
       title: title,
       message: message,
       buttons: [
         {
-          text: 'Annuler'
+          text: 'Annuler',
+          handler: () => {
+            if (doClose) {
+              doClose();
+            }
+          }
         },
         {
           text: 'Ok',

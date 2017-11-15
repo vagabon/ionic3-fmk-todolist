@@ -58,6 +58,8 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
     this.doScrollContentFlex();
   }
 
+  scrollFlexTop = 0;
+
   private doScrollContentFlex() {
     let ionScroll = this.element.nativeElement.parentNode.getElementsByClassName("content-scrool-flex");
     for (var i = 0; i < ionScroll.length; i++) {
@@ -69,9 +71,18 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
             if (!this.platform.is('cordova')) {
               event.srcElement.scrollTo(0, 0);
             }
+            this.scrollFlexTop = 0;
           }
         };
-        ionScroll[i].addEventListener('scroll', doEvent);
+        let doEventScrool = (event) => {
+          doEvent(event);
+          if (this.hide) {
+            this.scrollFlexTop = event.srcElement.scrollTop;
+          }
+        }
+        ionScroll[i].removeEventListener('scroll', doEventScrool);
+        ionScroll[i].addEventListener('scroll', doEventScrool);
+        ionScroll[i].removeEventListener('touchmove', doEvent);
         ionScroll[i].addEventListener('touchmove', doEvent);
       }
     }
@@ -98,7 +109,7 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
       this.swipeCoord = coord;
     } else if (when === 'end') {
       const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
-      let scrollTop = Math.floor((direction[1] * -1));
+      let scrollTop = Math.floor((direction[1] * -1) / 1.5);
       let element = event.target;
       let canSlide = true;
       while (element.parentElement) {
@@ -151,13 +162,15 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
     }
   }
 
-  resizeHeader(scrollTop){
+  resizeHeader2(scrollTop){
+    if (this.scrollFlexTop > 0) {
+      return;
+    }
     this.calculateHeigth();
     this.scrollTop += scrollTop;
     if (this.scrollTop < 0) {
       this.scrollTop = 0;
     }
-    console.log(this.scrollTop);
     this.newHeaderHeight = Math.floor(this.headerHeight - (this.scrollTop));
     if(this.newHeaderHeight < 0){
       this.newHeaderHeight = 0;
@@ -192,6 +205,58 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
           this.hide = false;
         }
       }
+    }
+    this.initHeigth(this.newHeaderHeight);
+  }
+
+  resizeHeader(scrollTop) {
+    if (this.scrollFlexTop > 0) {
+      return;
+    }
+    this.calculateHeigth();
+    this.scrollTop += scrollTop;
+    if (this.scrollTop < 0) {
+      this.scrollTop = 0;
+    }
+    let min = 0;
+    let number = 0;
+    // on diminue l'image sous le header
+    if (this.element.nativeElement.parentNode.getElementsByClassName("expandable-header-page")) {
+      let expandableheaderPage = this.element.nativeElement.parentNode.getElementsByClassName("expandable-header-page");
+      if (expandableheaderPage && expandableheaderPage.length > 0) {
+        let minHeight = expandableheaderPage[0].getAttribute('minHeight');
+        if (!minHeight) {
+          minHeight = expandableheaderPage[0].offsetHeight;
+          expandableheaderPage[0].setAttribute('minHeight', minHeight);
+        }
+        min = parseInt(minHeight ? minHeight : 180);
+        number = min - (this.scrollTop);
+        if (number < 0) {
+          number = 0;
+        }
+        this.renderer.setStyle(expandableheaderPage[0], 'min-height', number + 'px');
+      }
+    }
+    if (number == 0) {
+      let diff = this.scrollTop - min;
+      if (diff < 30) {
+        this.scrollTop += diff;
+        diff = 0;
+      }
+      this.newHeaderHeight = Math.floor(this.headerHeight - diff);
+      if(this.newHeaderHeight < 0){
+        this.newHeaderHeight = 0;
+        this.scrollTop -= scrollTop;
+        this.hide = true;
+      } else {
+        this.hide = false;
+      }
+      if(this.newHeaderHeight > this.headerHeight){
+        this.newHeaderHeight = this.headerHeight;
+      }
+    } else {
+      this.hide = false;
+      this.newHeaderHeight = this.headerHeight;
     }
     this.initHeigth(this.newHeaderHeight);
   }

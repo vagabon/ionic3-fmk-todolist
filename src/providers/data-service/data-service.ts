@@ -14,7 +14,7 @@ export class DataServiceProvider extends DataFmkServiceProvider {
     lists: []
   }
 
-  constructor(protected baseService:BaseServiceProvider) {
+  constructor(public baseService:BaseServiceProvider) {
     super(baseService);
   }
 

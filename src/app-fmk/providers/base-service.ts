@@ -66,7 +66,7 @@ export class BaseServiceProvider {
   addDataToJson(table: any, data: any) {
     for (let i in data) {
       if (!table[i]) {
-        table[i] = data[i];
+        table[i] = JSON.parse(JSON.stringify(data[i]));
       }
     }
   }

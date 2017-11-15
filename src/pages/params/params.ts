@@ -5,6 +5,7 @@ import {DataFmkServiceProvider} from "../../app-fmk/providers/data-fmk-service/d
 import {FacebookServiceProvider} from "../../app-fmk/providers/facebook-service/facebook-service";
 import {PaypalServiceProvider} from "../../app-fmk/providers/paypal-service/paypal-service";
 import {GoogleAnalyticsServiceProvider} from "../../app-fmk/providers/google-analytics-service/google-analytics-service";
+import {AlertServiceProvider} from "../../app-fmk/providers/alert-service/alert-service";
 
 /**
  * Modale de paramètre.
@@ -23,7 +24,7 @@ export class ParamsPage {
   donate:boolean = false;
 
   constructor(private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, private facebookService: FacebookServiceProvider,
-              protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider) {
+              protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
     this.facebookService.doNothing();
     if (this.translate.getBrowserLang() !== undefined) {
       this.language = this.translate.getBrowserLang();
@@ -54,8 +55,14 @@ export class ParamsPage {
 
   doReset() {
     if (this.reset === true) {
-      this.dataService.data = { ...this.dataService.dataInit };
-      this.dataService.save();
+      this.alertService.showConfirm('Alerte', 'Supprimer les données ?', () => {
+        this.dataService.data = {...this.dataService.dataInit};
+        this.dataService.baseService.addDataToJson(this.dataService.data, this.dataService.dataApp);
+        this.dataService.save();
+        this.reset = false;
+      }, () => {
+        this.reset = false;
+      });
     }
 
   }

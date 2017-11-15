@@ -47,10 +47,6 @@ export class CreatePage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreatePage');
-  }
-
   doSave() {
     if (!this.find) {
       let maxId = 0;
