@@ -23,7 +23,7 @@ export function createTranslateLoader(http: HttpClient) {
 export function getLocationStategy() {
   try {
     if (document.location.href.indexOf('https://') != -1) {
-      return "hash";
+      return "path";
     } else {
       return "hash"
     }
