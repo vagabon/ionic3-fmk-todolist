@@ -1,0 +1,29 @@
+
+<expandable-header title="Création" [close]="true">
+</expandable-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-input type="text" placeholder="Nom" [(ngModel)]="item.name"></ion-input>
+  </ion-item>
+
+  <div class="content-scrool-flex" style="flex-direction: column;">
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" max="2020-10-31" [(ngModel)]="item.date"></ion-datetime>
+    </ion-item>
+    <ion-list radio-group [(ngModel)]="item.color" style="margin-bottom: 0px;">
+      <ion-list-header style="margin: 0;">
+        <h2 style="font-weight: bold;">Couleur</h2>
+      </ion-list-header>
+      <ion-item *ngFor="let color of colors" [style.borderLeft]="'10px solid ' + color[1]">
+        <ion-label>{{color[0]}}</ion-label>
+        <ion-radio checked="{{color[1] == item.color}}" value="{{color[1]}}"></ion-radio>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <button ion-button full (click)="doSave()">Sauvegarder</button>
+
+</ion-content>
