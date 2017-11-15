@@ -117,4 +117,5 @@ ion-card {
 
 @media only screen and (max-height: 500px) and (orientation: landscape) {
   .tabs-md .tabbar { display: none; }
+  .scroll-content { margin-bottom: 0px !important; }
 }

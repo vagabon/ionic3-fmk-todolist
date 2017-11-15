@@ -30,6 +30,26 @@ export class AdMobServiceProvider {
             console.error(error);
           });
       });
+
+      window.addEventListener("orientationchange", (e) => {
+
+        var currentOrientation = "";
+
+        if (window.orientation == 0) {
+          currentOrientation = "portrait";
+        } else if (window.orientation == 90) {
+          currentOrientation = "landscape";
+        } else if (window.orientation == -90) {
+          currentOrientation = "landscape";
+        } else if (window.orientation == 180) {
+          currentOrientation = "portrait";
+        }
+        if (currentOrientation == "portrait") {
+          this.admobFree.banner.show();
+        } else {
+          this.admobFree.banner.hide();
+        }
+      }, true);
     }
   }
 
