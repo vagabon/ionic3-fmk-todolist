@@ -24,12 +24,12 @@ export class BaseServiceProvider {
     }
   }
 
-  httpGet(url: string, doLoading: boolean = true) {
+  httpGet(url: string, doLoading: boolean = true, doCache: boolean = true) {
     return Observable.create(observer => {
       if (doLoading) {
         this.loading = true;
       }
-      this.httpService.httpGet(url).subscribe((data) => {
+      this.httpService.httpGet(url, doCache).subscribe((data) => {
         if (doLoading) {
           this.loading = false;
         }

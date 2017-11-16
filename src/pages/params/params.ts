@@ -64,8 +64,8 @@ export class ParamsPage {
         this.reset = false;
       });
     }
-
   }
+
   doChangeLanguage() {
     this.translate.use(this.language);
   }
