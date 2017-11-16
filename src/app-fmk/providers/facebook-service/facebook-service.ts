@@ -4,7 +4,6 @@ import {Facebook} from "@ionic-native/facebook";
 import {BaseServiceProvider} from "../base-service";
 import {DataFmkServiceProvider} from "../data-fmk-service/data-fmk-service";
 import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
-import {Observable} from "rxjs/Observable";
 
 /*
   Service pour la gestion de facebook.
@@ -37,7 +36,7 @@ export class FacebookServiceProvider {
 
 
   loginWithFacebook(path = "user") {
-    return Observable.create(observer => {
+    return new Promise((resolve, reject) => {
       (<any>this.mainService).login(["public_profile", "email"])
         .then((response) => {
           if (response.authResponse) {
@@ -56,24 +55,27 @@ export class FacebookServiceProvider {
                   this.setFacebookResponseLogin(response);
                   this.setFacebookResponseApi(responseApi);
                 }
-                this.dataService.save();
-                observer.next(responseApi);
+                this.dataService.save().then(() => {
+                  resolve(responseApi);
+                }, (error) => {
+                  reject(error);
+                });
               }, (error) => {
                 this.dataService.save();
-                observer.error(error);
+                reject(error);
               });
             }).catch((error: any) => {
               console.error("error api " + error);
-              observer.error(error);
+              reject(error);
             });
           } else {
             console.log('User cancelled login or did not fully authorize.');
-            observer.error('User cancelled login or did not fully authorize.');
+            reject('User cancelled login or did not fully authorize.');
           }
         })
         .catch((error: any) => {
           console.error("error login " + JSON.stringify(error));
-          observer.error(error);
+          reject(error);
         });
     });
   }

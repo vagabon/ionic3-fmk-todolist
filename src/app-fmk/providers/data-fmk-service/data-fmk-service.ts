@@ -42,48 +42,52 @@ export class DataFmkServiceProvider {
   }
 
   save() {
-    let storage = JSON.stringify(this.data);
-    localStorage.setItem(this.KEY, storage);
+    return new Promise((resolve, reject) => {
+      let storage = JSON.stringify(this.data);
+      localStorage.setItem(this.KEY, storage);
 
-    let dataSave = {};
-    for (let i in this.data) {
-      if (i != 'cache') {
-        if (this.data[i] && this.data[i].constructor === {}.constructor) {
-          dataSave[i] = JSON.stringify(this.data[i]);
-        } else if (this.data[i] && this.data[i].constructor === [].constructor) {
-          dataSave[i] = '';
-          for (let j in this.data[i]) {
-            let dimension = '';
-            if (Array.isArray(this.data[i][j])) {
-              let dimension2 = '';
-              for (let k in this.data[i][j]) {
-                if (this.data[i][j][k]) {
-                  dimension2 += k + '>' + this.data[i][j][k] + ':';
+      let dataSave = {};
+      for (let i in this.data) {
+        if (i != 'cache') {
+          if (this.data[i] && this.data[i].constructor === {}.constructor) {
+            dataSave[i] = JSON.stringify(this.data[i]);
+          } else if (this.data[i] && this.data[i].constructor === [].constructor) {
+            dataSave[i] = '';
+            for (let j in this.data[i]) {
+              let dimension = '';
+              if (Array.isArray(this.data[i][j])) {
+                let dimension2 = '';
+                for (let k in this.data[i][j]) {
+                  if (this.data[i][j][k]) {
+                    dimension2 += k + '>' + this.data[i][j][k] + ':';
+                  }
+                }
+                if (dimension2 != '') {
+                  dimension += j + '=' + (dimension2.length > 1 ? dimension2.substring(0, dimension2.length - 1) : dimension2) + ';';
+                }
+              } else {
+                if (this.data[i][j]) {
+                  dimension += j + '=' + this.data[i][j] + ';';
                 }
               }
-              if (dimension2 != '') {
-                dimension += j + '=' + (dimension2.length > 1 ? dimension2.substring(0, dimension2.length-1) : dimension2) + ';';
-              }
-            } else {
-              if (this.data[i][j]) {
-                dimension += j + '=' + this.data[i][j] + ';';
-              }
+              dataSave[i] += dimension;
             }
-            dataSave[i] += dimension;
+            dataSave[i] = (dataSave[i].length > 1 ? dataSave[i].substring(0, dataSave[i].length - 1) : dataSave[i]);
+          } else {
+            dataSave[i] = this.data[i];
           }
-          dataSave[i] = (dataSave[i].length > 1 ? dataSave[i].substring(0, dataSave[i].length-1) : dataSave[i]);
-        } else {
-          dataSave[i] = this.data[i];
         }
       }
-    }
-    console.log('SAVE DATA', dataSave);
-    this.baseService.httpService.httpPost(this.baseService.URL + 'user/update', dataSave).subscribe(()=> {
-    }, (error) => {
-      if (error.exception == "No entity found for query") {
-        this.data.id = 0;
-        this.newUser();
-      }
+      console.log('SAVE DATA', dataSave);
+      this.baseService.httpService.httpPost(this.baseService.URL + 'user/update', dataSave).subscribe((data) => {
+        resolve(data);
+      }, (error) => {
+        if (error.exception == "No entity found for query") {
+          this.data.id = 0;
+          this.newUser();
+        }
+        reject(error);
+      });
     });
   }
 
