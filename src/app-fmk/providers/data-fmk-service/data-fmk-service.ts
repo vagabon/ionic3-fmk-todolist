@@ -118,55 +118,58 @@ export class DataFmkServiceProvider {
     });
   }
 
-  loadFromApi(name) {
-    this.baseService.httpGet(this.baseService.URL + 'user/findBy?champs=name&values=' + name).subscribe((data) => {
-      let newData = {};
-      if (data.content && data.content[0]) {
-        for (let key in data.content[0]) {
-          let value = data.content[0][key];
-          if (isNaN(value) && value.includes('{')) {
-            newData[key] = JSON.parse(value);
-          } else if (isNaN(value) && value.includes(':')) {
-            newData[key] = [];
-            let split = value.split(';');
-            for (let i in split) {
-              let split2 = split[i].split("=");
-              let indice = split2[0];
-              let valueSplit = split2[1].split(":");
-              newData[key][indice] = [];
-              for (let j in valueSplit) {
-                let valueSplit2 = valueSplit[j].split(">");
-                try {
-                  newData[key][indice][valueSplit2[0]] = JSON.parse(valueSplit2[1]);
-                } catch (exception) {
-                  newData[key][indice][valueSplit2[0]] = valueSplit2[1];
-                }
-              }
-            }
-          } else if (isNaN(value) && value.includes(';')) {
-            newData[key] = [];
-            let split = value.split(';');
-            for (let i in split) {
-              let split2 = split[i].split("=");
-              let indice = split2[0];
-              newData[key][indice] = JSON.parse(split2[1]);
-            }
-          } else if (value === 'true' || value === 'false') {
-            newData[key] = value === 'true';
-          } else if (value && typeof(value) !== "boolean" && value != '' && !Number.isNaN(parseInt(value))) {
-            newData[key] = parseInt(value);
-          } else {
-            newData[key] = value;
-          }
-        }
-        for (let key in newData) {
-          this.data[key] = newData[key];
-        }
-        console.log('DATA FROM API', newData);
-        this.save();
-      }
+  loadFromApiId(id) {
+    this.baseService.httpGet(this.baseService.URL + 'user/findBy?champs=id&values=' + id).subscribe((data) => {
+      this.transformLoadFromApiData(data.content && data.content[0] ? data.content[0] : null);
+      this.save();
     });
   }
 
+  transformLoadFromApiData(data) {
+    let newData = {};
+    if (data) {
+      for (let key in data) {
+        let value = data[key];
+        if (isNaN(value) && value.includes('{')) {
+          newData[key] = JSON.parse(value);
+        } else if (isNaN(value) && value.includes(':')) {
+          newData[key] = [];
+          let split = value.split(';');
+          for (let i in split) {
+            let split2 = split[i].split("=");
+            let indice = split2[0];
+            let valueSplit = split2[1].split(":");
+            newData[key][indice] = [];
+            for (let j in valueSplit) {
+              let valueSplit2 = valueSplit[j].split(">");
+              try {
+                newData[key][indice][valueSplit2[0]] = JSON.parse(valueSplit2[1]);
+              } catch (exception) {
+                newData[key][indice][valueSplit2[0]] = valueSplit2[1];
+              }
+            }
+          }
+        } else if (isNaN(value) && value.includes(';')) {
+          newData[key] = [];
+          let split = value.split(';');
+          for (let i in split) {
+            let split2 = split[i].split("=");
+            let indice = split2[0];
+            newData[key][indice] = JSON.parse(split2[1]);
+          }
+        } else if (value === 'true' || value === 'false') {
+          newData[key] = value === 'true';
+        } else if (value && typeof(value) !== "boolean" && value != '' && !Number.isNaN(parseInt(value))) {
+          newData[key] = parseInt(value);
+        } else {
+          newData[key] = value;
+        }
+      }
+      for (let key in newData) {
+        this.data[key] = newData[key];
+      }
+    }
+    console.log('DATA FROM API', newData);
+  }
 }
 

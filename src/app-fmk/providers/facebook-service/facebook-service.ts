@@ -51,7 +51,7 @@ export class FacebookServiceProvider {
                   if (this.dataService.data.id != data.content[0].id) {
                     this.baseService.httpService.httpPost(this.baseService.URL + path + "/delete?id=" + this.dataService.data.id, {}).subscribe();
                   }
-                  this.dataService.data = data.content[0];
+                  this.dataService.data = this.dataService.transformLoadFromApiData(data.content[0]);
                   this.setFacebookResponseLogin(response);
                   this.setFacebookResponseApi(responseApi);
                 }
