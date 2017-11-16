@@ -36,7 +36,7 @@ export class FacebookServiceProvider {
   }
 
 
-  loginWithFacebook(): void {
+  loginWithFacebook(path = "user") {
     return Observable.create(observer => {
       (<any>this.mainService).login(["public_profile", "email"])
         .then((response) => {
@@ -46,11 +46,11 @@ export class FacebookServiceProvider {
             (<any>this.mainService).api('/me?fields=id,name,picture,email', ["public_profile", "email"]).then((responseApi) => {
               console.log("LOGIN WITH FACEBOOK DATA USER", responseApi);
               this.setFacebookResponseApi(responseApi);
-              this.baseService.httpGet(this.baseService.URL + "user/findBy?champs=facebookUserId&values=" + this.dataService.data.facebookUserId).subscribe((data) => {
+              this.baseService.httpGet(this.baseService.URL + path + "/findBy?champs=facebookUserId&values=" + this.dataService.data.facebookUserId).subscribe((data) => {
                 console.log("USER FACEBOOK", data, this.dataService.data);
                 if (data.content && data.content.length > 0) {
                   if (this.dataService.data.id != data.content[0].id) {
-                    this.baseService.httpService.httpPost(this.baseService.URL + "user/delete?id=" + this.dataService.data.id, {}).subscribe();
+                    this.baseService.httpService.httpPost(this.baseService.URL + path + "/delete?id=" + this.dataService.data.id, {}).subscribe();
                   }
                   this.dataService.data = data.content[0];
                   this.setFacebookResponseLogin(response);

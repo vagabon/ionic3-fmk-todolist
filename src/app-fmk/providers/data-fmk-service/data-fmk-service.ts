@@ -102,7 +102,7 @@ export class DataFmkServiceProvider {
   }
 
   newUser = function () {
-    if (!this.data.id || this.data.id <= 0 || this.data.id == 0 || this.data.id == '0') {
+    if (!this.data.id || this.data.id <= 0) {
       this.baseService.httpGet(this.baseService.URL + 'user/newOne').subscribe((data) => {
         this.data.id = data.content.id;
         this.data.name = data.content.name;
