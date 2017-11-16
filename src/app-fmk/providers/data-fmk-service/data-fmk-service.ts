@@ -86,7 +86,6 @@ export class DataFmkServiceProvider {
           this.data.id = 0;
           this.newUser();
         }
-        reject(error);
       });
     });
   }

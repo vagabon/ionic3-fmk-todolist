@@ -56,6 +56,7 @@ export class FacebookServiceProvider {
                   this.setFacebookResponseApi(responseApi);
                 }
                 this.dataService.save().then(() => {
+                  // TODO : verify resolve or transform on Observable
                   resolve(responseApi);
                 }, (error) => {
                   reject(error);
