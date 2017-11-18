@@ -106,20 +106,20 @@ export class DataFmkServiceProvider {
 
   newUser = function () {
     if (!this.data.id || this.data.id <= 0) {
-      this.baseService.httpGet(this.baseService.URL + 'user/newOne').subscribe((data) => {
+      this.baseService.httpGet(this.baseService.URL + 'user/newOne', true, false).subscribe((data) => {
         this.data.id = data.content.id;
         this.data.name = data.content.name;
         this.save();
       }, (error) => { console.error("NEW USER", error); });
     }
-    this.baseService.httpGet('https://api.ipify.org/?format=json').subscribe((data) => {
+    this.baseService.httpGet('https://api.ipify.org/?format=json', true, false).subscribe((data) => {
       this.data.adressIp = data.content.ip;
       this.save();
     });
   }
 
   loadFromApiId(id) {
-    this.baseService.httpGet(this.baseService.URL + 'user/findBy?champs=id&values=' + id).subscribe((data) => {
+    this.baseService.httpGet(this.baseService.URL + 'user/findBy?champs=id&values=' + id, true, false).subscribe((data) => {
       this.transformLoadFromApiData(data.content && data.content[0] ? data.content[0] : null);
       this.save();
     });

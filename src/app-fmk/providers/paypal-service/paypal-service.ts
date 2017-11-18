@@ -54,7 +54,7 @@ export class PaypalServiceProvider {
 
   getPaypalPaimentFromApi(paypalId) {
     return Observable.create(observer => {
-      this.baseService.httpGet(this.baseService.URL + 'paypal/findBy?champs=id&values=' + paypalId).subscribe((data) => {
+      this.baseService.httpGet(this.baseService.URL + 'paypal/findBy?champs=id&values=' + paypalId, true, false).subscribe((data) => {
         this.dataService.load();
         if (data.content && data.content.length > 0) {
           let paypalPaiment = data.content[0];
