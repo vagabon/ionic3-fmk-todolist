@@ -54,10 +54,12 @@ export class AdMobServiceProvider {
   }
 
   toogleBannierePub(show = true) {
-    if (show) {
-      this.admobFree.banner.show();
-    } else {
-      this.admobFree.banner.hide();
+    if (this.platform.is("cordova")) {
+      if (show) {
+        this.admobFree.banner.show();
+      } else {
+        this.admobFree.banner.hide();
+      }
     }
   }
 
