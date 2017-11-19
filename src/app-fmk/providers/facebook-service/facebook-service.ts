@@ -41,7 +41,7 @@ export class FacebookServiceProvider {
           (<any>this.mainService).api('/me?fields=id,name,picture,email', ["public_profile", "email"]).then((responseApi) => {
             console.log("LOGIN WITH FACEBOOK DATA USER", responseApi);
             this.setFacebookResponseApi(responseApi);
-            this.baseService.httpGet(this.baseService.URL + path + "/findBy?champs=facebookUserId&values=" + this.dataService.data.facebookUserId).subscribe((data) => {
+            this.baseService.httpGet(this.baseService.URL + path + "/findBy?champs=facebookUserId>>id&values=" + this.dataService.data.facebookUserId).subscribe((data) => {
               console.log("USER FACEBOOK", data, this.dataService.data);
               if (data.content && data.content.length > 0) {
                 this.alertService.showConfirm('Conflit de sauvegarde', 'Souhaitez-vous charger les données depuis le serveur ?', () => {
