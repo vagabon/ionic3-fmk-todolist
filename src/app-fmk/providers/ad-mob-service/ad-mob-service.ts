@@ -19,23 +19,23 @@ export class AdMobServiceProvider {
     if (this.platform.is("cordova")) {
       this.platform.ready().then(() => {
         if (!this.initBaniere) {
+          this.toogleBannierePub(show);
+        } else {
           const bannerConfig: AdMobFreeBannerConfig = {
             id: this.configService.API_ADMOB_BANNIER,
             isTesting: false,
-            autoShow: false
+            autoShow: true
           };
           this.admobFree.banner.config(bannerConfig);
           this.admobFree.banner.prepare()
             .then(() => {
+              this.hideBanniereOnLandscape();
               this.toogleBannierePub(show);
             })
             .catch(error => {
               console.error(error);
             });
-          this.hideBanniereOnLandscape();
           this.initBaniere = true;
-        } else {
-          this.toogleBannierePub(show);
         }
       });
     }
