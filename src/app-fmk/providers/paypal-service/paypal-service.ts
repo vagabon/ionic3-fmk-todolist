@@ -59,13 +59,14 @@ export class PaypalServiceProvider {
         if (data.content && data.content.length > 0) {
           let paypalPaiment = data.content[0];
           if (!paypalPaiment.userUsed) {
+            paypalPaiment._userUsed = paypalPaiment.userUsed === true;
             paypalPaiment.userUsed = true;
             paypalPaiment.userId = this.dataService.data.id;
             console.log('consommation paypal paiment', paypalPaiment);
             this.baseService.httpService.httpPost(this.baseService.URL + 'paypal/update', paypalPaiment).subscribe();
             observer.next(paypalPaiment);
           } else {
-            console.log('paypal paiment déjà consommé', data);
+            console.log('paypal paiment déjà consommé', data.content && data.content.length ? data.content[0] : {});
           }
         }
       }, () => {

@@ -93,7 +93,7 @@ export class DataFmkServiceProvider {
     }
   }
 
-  private saveAdressIp() {
+  saveAdressIp() {
     this.baseService.httpGet('https://api.ipify.org/?format=json', true, false).subscribe((data) => {
       this.data.adressIp = data.content.ip;
       this.save();

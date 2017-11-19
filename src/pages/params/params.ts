@@ -23,9 +23,8 @@ export class ParamsPage {
 
   donate:boolean = false;
 
-  constructor(private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, private facebookService: FacebookServiceProvider,
+  constructor(private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
               protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
-    this.facebookService.doNothing();
     if (this.translate.getBrowserLang() !== undefined) {
       this.language = this.translate.getBrowserLang();
     }
