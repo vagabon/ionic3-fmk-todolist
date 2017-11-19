@@ -7,7 +7,9 @@ import {BaseServiceProvider} from "../base-service";
 @Injectable()
 export class DataFmkServiceProvider {
 
-  KEY:string = 'data_vagabond_ionic2_fmk';
+  KEY: string = 'data_vagabond_ionic2_fmk';
+
+  PATH: string = 'user';
 
   dataInit = {
     id: 0,
@@ -45,41 +47,16 @@ export class DataFmkServiceProvider {
     return new Promise((resolve, reject) => {
       let storage = JSON.stringify(this.data);
       localStorage.setItem(this.KEY, storage);
-
       let dataSave = {};
       for (let i in this.data) {
-        if (i != 'cache') {
-          if (this.data[i] && this.data[i].constructor === {}.constructor) {
-            dataSave[i] = JSON.stringify(this.data[i]);
-          } else if (this.data[i] && this.data[i].constructor === [].constructor) {
-            dataSave[i] = '';
-            for (let j in this.data[i]) {
-              let dimension = '';
-              if (Array.isArray(this.data[i][j])) {
-                let dimension2 = '';
-                for (let k in this.data[i][j]) {
-                  if (this.data[i][j][k]) {
-                    dimension2 += k + '>' + this.data[i][j][k] + ':';
-                  }
-                }
-                if (dimension2 != '') {
-                  dimension += j + '=' + (dimension2.length > 1 ? dimension2.substring(0, dimension2.length - 1) : dimension2) + ';';
-                }
-              } else {
-                if (this.data[i][j]) {
-                  dimension += j + '=' + this.data[i][j] + ';';
-                }
-              }
-              dataSave[i] += dimension;
-            }
-            dataSave[i] = (dataSave[i].length > 1 ? dataSave[i].substring(0, dataSave[i].length - 1) : dataSave[i]);
-          } else {
-            dataSave[i] = this.data[i];
-          }
+        dataSave[i] = JSON.stringify(this.data[i]);
+        if (this.data[i] && (this.data[i].constructor === {}.constructor || this.data[i].constructor === [].constructor)) {
+        } else {
+          dataSave[i] = this.data[i];
         }
       }
       console.log('SAVE DATA', dataSave);
-      this.baseService.httpService.httpPost(this.baseService.URL + 'user/update', dataSave).subscribe((data) => {
+      this.baseService.httpService.httpPost(this.baseService.URL + this.PATH + '/update', dataSave).subscribe((data) => {
         resolve(data);
       }, (error) => {
         if (error.exception == "No entity found for query") {
@@ -106,22 +83,32 @@ export class DataFmkServiceProvider {
 
   newUser = function () {
     if (!this.data.id || this.data.id <= 0) {
-      this.baseService.httpGet(this.baseService.URL + 'user/newOne', true, false).subscribe((data) => {
+      this.baseService.httpGet(this.baseService.URL + this.PATH + '/newOne', true, false).subscribe((data) => {
         this.data.id = data.content.id;
         this.data.name = data.content.name;
-        this.save();
+        this.saveAdressIp();
       }, (error) => { console.error("NEW USER", error); });
+    } else {
+      this.saveAdressIp();
     }
+  }
+
+  private saveAdressIp() {
     this.baseService.httpGet('https://api.ipify.org/?format=json', true, false).subscribe((data) => {
       this.data.adressIp = data.content.ip;
       this.save();
-    });
+    }, () => { this.save(); });
   }
 
   loadFromApiId(id) {
-    this.baseService.httpGet(this.baseService.URL + 'user/findBy?champs=id&values=' + id, true, false).subscribe((data) => {
+    this.baseService.httpGet(this.baseService.URL + this.PATH + '/findBy?champs=id&values=' + id, true, false).subscribe((data) => {
       this.transformLoadFromApiData(data.content && data.content[0] ? data.content[0] : null);
-      this.save();
+    });
+  }
+
+  loadFromApiName(name) {
+    this.baseService.httpGet(this.baseService.URL + this.PATH + '/findBy?champs=name&values=' + name, true, false).subscribe((data) => {
+      this.transformLoadFromApiData(data.content && data.content[0] ? data.content[0] : null);
     });
   }
 
@@ -130,33 +117,8 @@ export class DataFmkServiceProvider {
     if (data) {
       for (let key in data) {
         let value = data[key];
-        if (isNaN(value) && value.includes('{')) {
+        if (isNaN(value) && (value.includes('{') || value.includes('['))) {
           newData[key] = JSON.parse(value);
-        } else if (isNaN(value) && value.includes(':')) {
-          newData[key] = [];
-          let split = value.split(';');
-          for (let i in split) {
-            let split2 = split[i].split("=");
-            let indice = split2[0];
-            let valueSplit = split2[1].split(":");
-            newData[key][indice] = [];
-            for (let j in valueSplit) {
-              let valueSplit2 = valueSplit[j].split(">");
-              try {
-                newData[key][indice][valueSplit2[0]] = JSON.parse(valueSplit2[1]);
-              } catch (exception) {
-                newData[key][indice][valueSplit2[0]] = valueSplit2[1];
-              }
-            }
-          }
-        } else if (isNaN(value) && value.includes(';')) {
-          newData[key] = [];
-          let split = value.split(';');
-          for (let i in split) {
-            let split2 = split[i].split("=");
-            let indice = split2[0];
-            newData[key][indice] = JSON.parse(split2[1]);
-          }
         } else if (value === 'true' || value === 'false') {
           newData[key] = value === 'true';
         } else if (value && typeof(value) !== "boolean" && value != '' && !Number.isNaN(parseInt(value))) {

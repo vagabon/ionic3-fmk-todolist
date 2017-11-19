@@ -4,6 +4,7 @@ import {Facebook} from "@ionic-native/facebook";
 import {BaseServiceProvider} from "../base-service";
 import {DataFmkServiceProvider} from "../data-fmk-service/data-fmk-service";
 import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
+import {AlertServiceProvider} from "../alert-service/alert-service";
 
 /*
   Service pour la gestion de facebook.
@@ -13,7 +14,8 @@ export class FacebookServiceProvider {
 
   mainService: any;
 
-  constructor(private baseService:BaseServiceProvider, private dataService:DataFmkServiceProvider, private facebookService: FacebookService, private facebookCordova:Facebook, private configService:ConfigFmkServiceProvider) {
+  constructor(private baseService:BaseServiceProvider, private dataService:DataFmkServiceProvider, private facebookService: FacebookService,
+              private facebookCordova:Facebook, private configService:ConfigFmkServiceProvider, private alertService:AlertServiceProvider) {
     if (!this.baseService.platform.is('cordova')) {
       this.mainService = this.facebookService;
       this.facebookService.init({
@@ -30,54 +32,46 @@ export class FacebookServiceProvider {
     }
   }
 
-  doNothing() {
-
-  }
-
   loginWithFacebook(path = "user") {
-    return new Promise((resolve, reject) => {
-      (<any>this.mainService).login(["public_profile", "email"])
-        .then((response) => {
-          if (response.authResponse) {
-            console.log("LOGIN WITH FACEBOOK", response);
-            this.setFacebookResponseLogin(response);
-            (<any>this.mainService).api('/me?fields=id,name,picture,email', ["public_profile", "email"]).then((responseApi) => {
-              console.log("LOGIN WITH FACEBOOK DATA USER", responseApi);
-              this.setFacebookResponseApi(responseApi);
-              this.baseService.httpGet(this.baseService.URL + path + "/findBy?champs=facebookUserId&values=" + this.dataService.data.facebookUserId, true, false).subscribe((data) => {
-                console.log("USER FACEBOOK", data, this.dataService.data);
-                if (data.content && data.content.length > 0) {
-                  if (this.dataService.data.id != data.content[0].id) {
-                    this.baseService.httpService.httpPost(this.baseService.URL + path + "/delete?id=" + this.dataService.data.id, {}).subscribe();
-                  }
-                  this.dataService.transformLoadFromApiData(data.content[0]);
-                  this.setFacebookResponseLogin(response);
-                  this.setFacebookResponseApi(responseApi);
-                }
-                this.dataService.save().then(() => {
-                  // TODO : verify resolve or transform on Observable
-                  resolve(this.dataService.data);
-                }, (error) => {
-                  reject(error);
+    (<any>this.mainService).login(["public_profile", "email"])
+      .then((response) => {
+        if (response.authResponse) {
+          console.log("LOGIN WITH FACEBOOK", response);
+          this.setFacebookResponseLogin(response);
+          (<any>this.mainService).api('/me?fields=id,name,picture,email', ["public_profile", "email"]).then((responseApi) => {
+            console.log("LOGIN WITH FACEBOOK DATA USER", responseApi);
+            this.setFacebookResponseApi(responseApi);
+            this.baseService.httpGet(this.baseService.URL + path + "/findBy?champs=facebookUserId&values=" + this.dataService.data.facebookUserId).subscribe((data) => {
+              console.log("USER FACEBOOK", data, this.dataService.data);
+              if (data.content && data.content.length > 0) {
+                this.alertService.showConfirm('Conflit de sauvegarde', 'Souhaitez-vous charger les données depuis le serveur ?', () => {
+                    if (this.dataService.data.id != data.content[0].id) {
+                      this.baseService.httpService.httpPost(this.baseService.URL + path + "/delete?id=" + this.dataService.data.id, {}).subscribe();
+                    }
+                    this.dataService.transformLoadFromApiData(data.content[0]);
+                    this.setFacebookResponseLogin(response);
+                    this.setFacebookResponseApi(responseApi);
+                    this.dataService.save();
+                  }, () => {
+                    this.dataService.save();
                 });
-              }, (error) => {
+              } else {
                 this.dataService.save();
-                reject(error);
-              });
-            }).catch((error: any) => {
-              console.error("error api " + error);
-              reject(error);
+              }
+            }, (error) => {
+              console.error("error save " + error);
+              this.dataService.save();
             });
-          } else {
-            console.log('User cancelled login or did not fully authorize.');
-            reject('User cancelled login or did not fully authorize.');
-          }
-        })
-        .catch((error: any) => {
-          console.error("error login " + JSON.stringify(error));
-          reject(error);
-        });
-    });
+          }).catch((error: any) => {
+            console.error("error api " + error);
+          });
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      })
+      .catch((error: any) => {
+        console.error("error login " + JSON.stringify(error));
+      });
   }
 
   setFacebookResponseLogin(response) {
