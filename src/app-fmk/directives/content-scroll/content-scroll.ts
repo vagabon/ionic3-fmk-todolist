@@ -11,7 +11,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
         {{notFound}}
       </div>
       <ng-content></ng-content>
-      <div style="margin: 0 5px; width: 100%; text-align: center;">
+      <ion-spinner name="bubbles" color="secondary" *ngIf="loading && !list"></ion-spinner>
+      <div style="margin: 0 5px; width: 100%; text-align: center;" *ngIf="list">
         <ion-spinner name="bubbles" color="secondary" *ngIf="loading"></ion-spinner>
         <button ion-button small color="secondary" (click)="doLoadMore()" *ngIf="loading === false && ((list && list.length > 0 && list.length % 10 == 0) || (search == '' && searchEmpty))">
           <ion-icon name="ios-arrow-down"></ion-icon>
