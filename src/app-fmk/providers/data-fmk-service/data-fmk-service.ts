@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseServiceProvider} from "../base-service";
+import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
 
 /**
  Service générique des Data de l'application.
@@ -8,8 +9,6 @@ import {BaseServiceProvider} from "../base-service";
 export class DataFmkServiceProvider {
 
   KEY: string = 'data_vagabond_ionic2_fmk';
-
-  PATH: string = 'user';
 
   dataInit = {
     id: 0,
@@ -31,7 +30,7 @@ export class DataFmkServiceProvider {
 
   data = JSON.parse(JSON.stringify(this.dataInit));
 
-  constructor(public baseService:BaseServiceProvider) {
+  constructor(public baseService:BaseServiceProvider, private configService: ConfigFmkServiceProvider) {
     if (typeof localStorage === 'object') {
       try {
         localStorage.setItem('localStorage', "1");
@@ -42,30 +41,6 @@ export class DataFmkServiceProvider {
         //alert('Your web browser does not support storing settings locally. In Safari, the most common cause of this is using "Private Browsing Mode". Some settings may not save or some features may not work properly for you.');
       }
     }
-  }
-
-  save() {
-    return new Promise((resolve, reject) => {
-      let storage = JSON.stringify(this.data);
-      localStorage.setItem(this.KEY, storage);
-      let dataSave = {};
-      for (let i in this.data) {
-        dataSave[i] = JSON.stringify(this.data[i]);
-        if (this.data[i] && (this.data[i].constructor === {}.constructor || this.data[i].constructor === [].constructor)) {
-        } else {
-          dataSave[i] = this.data[i];
-        }
-      }
-      console.log('SAVE DATA', dataSave);
-      this.baseService.httpService.httpPost(this.baseService.URL + this.PATH + '/update', dataSave).subscribe((data) => {
-        resolve(data);
-      }, (error) => {
-        if (error.exception == "No entity found for query") {
-          this.data.id = 0;
-          this.newUser();
-        }
-      });
-    });
   }
 
   load(reset = false) {
@@ -89,9 +64,33 @@ export class DataFmkServiceProvider {
     this.newUser();
   }
 
+  save() {
+    return new Promise((resolve, reject) => {
+      let storage = JSON.stringify(this.data);
+      localStorage.setItem(this.KEY, storage);
+      let dataSave = {};
+      for (let i in this.data) {
+        dataSave[i] = JSON.stringify(this.data[i]);
+        if (this.data[i] && (this.data[i].constructor === {}.constructor || this.data[i].constructor === [].constructor)) {
+        } else {
+          dataSave[i] = this.data[i];
+        }
+      }
+      console.log('SAVE DATA', dataSave);
+      this.baseService.httpService.httpPost(this.baseService.URL + this.configService.PATH_USER + '/update', dataSave).subscribe((data) => {
+        resolve(data);
+      }, (error) => {
+        if (error.exception == "No entity found for query") {
+          this.data.id = 0;
+          this.newUser();
+        }
+      });
+    });
+  }
+
   newUser = function () {
     if (!this.data.id || this.data.id <= 0) {
-      this.baseService.httpGet(this.baseService.URL + this.PATH + '/newOne', true, false).subscribe((data) => {
+      this.baseService.httpGet(this.baseService.URL + this.configService.PATH_USER + '/newOne', true, false).subscribe((data) => {
         this.data.id = data.content.id;
         this.data.name = data.content.name;
         this.saveAdressIp();
@@ -109,13 +108,13 @@ export class DataFmkServiceProvider {
   }
 
   loadFromApiId(id) {
-    this.baseService.httpGet(this.baseService.URL + this.PATH + '/findBy?champs=id&values=' + id, true, false).subscribe((data) => {
+    this.baseService.httpGet(this.baseService.URL + this.configService.PATH_USER + '/findBy?champs=id&values=' + id, true, false).subscribe((data) => {
       this.transformLoadFromApiData(data.content && data.content[0] ? data.content[0] : null);
     });
   }
 
   loadFromApiName(name) {
-    this.baseService.httpGet(this.baseService.URL + this.PATH + '/findBy?champs=name&values=' + name, true, false).subscribe((data) => {
+    this.baseService.httpGet(this.baseService.URL + this.configService.PATH_USER + '/findBy?champs=name&values=' + name, true, false).subscribe((data) => {
       this.transformLoadFromApiData(data.content && data.content[0] ? data.content[0] : null);
     });
   }

@@ -154,7 +154,7 @@ export class ParamsDirective {
   }
 
   doLoginFacebook() {
-    this.facebookService.loginWithFacebook("student");
+    this.facebookService.loginWithFacebook();
   }
   doCloseFacebook() {
     this.facebookService.logoutWithFacebook();

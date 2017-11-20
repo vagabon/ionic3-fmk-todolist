@@ -7,6 +7,8 @@ import {NavController} from "ionic-angular";
 @Injectable()
 export class ConfigFmkServiceProvider {
 
+  PATH_USER = "user";
+
   API_FACEBOOK_TEST: string = 'API_FACEBOOK_TEST';
   API_FACEBOOK_PROD: string = 'API_FACEBOOK_PROD';
 
