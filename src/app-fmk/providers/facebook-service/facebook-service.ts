@@ -41,12 +41,13 @@ export class FacebookServiceProvider {
           (<any>this.mainService).api('/me?fields=id,name,picture,email', ["public_profile", "email"]).then((responseApi) => {
             console.log("LOGIN WITH FACEBOOK DATA USER", responseApi);
             this.setFacebookResponseApi(responseApi);
-            this.baseService.httpGet(this.baseService.URL + this.configService.PATH_USER + "/findBy?champs=facebookUserId>>id&values=" + this.dataService.data.facebookUserId).subscribe((data) => {
+            let userPath = this.baseService.URL + this.configService.PATH_USER;
+            this.baseService.httpGet(userPath + "/findBy?champs=facebookUserId>>id&values=" + this.dataService.data.facebookUserId, true, false).subscribe((data) => {
               console.log("USER FACEBOOK", data, this.dataService.data);
               if (data.content && data.content.length > 0) {
                 this.alertService.showConfirm('Conflit de sauvegarde', 'Souhaitez-vous charger les données depuis le serveur ?', () => {
                     if (this.dataService.data.id != data.content[0].id) {
-                      this.baseService.httpService.httpPost(this.baseService.URL + this.configService.PATH_USER + "/delete?id=" + this.dataService.data.id, {}).subscribe();
+                      this.baseService.httpService.httpPost(userPath + "/delete?id=" + this.dataService.data.id, {}).subscribe();
                     }
                     this.dataService.transformLoadFromApiData(data.content[0]);
                     this.setFacebookResponseLogin(response);
@@ -54,7 +55,7 @@ export class FacebookServiceProvider {
                     this.dataService.save();
                   }, () => {
                     data.content[0].facebookUserId = 'old_' + data.content[0].facebookUserId;
-                    this.baseService.httpService.httpPost(this.baseService.URL + this.configService.PATH_USER + '/update', data.content[0]).subscribe();
+                    this.baseService.httpService.httpPost(userPath + '/update', data.content[0]).subscribe();
                   this.dataService.save();
                 });
               } else {
