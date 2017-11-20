@@ -73,13 +73,11 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
       
       <ng-content></ng-content>
       
-      <ion-list style="width: 100%;" *ngIf="dataService.data.isAdmin">
-        <ion-item>
-          <ion-icon name="refresh" item-start></ion-icon>
-          <ion-label> {{'PARAMS_DELETE_DATA' | translate}}</ion-label>
-          <ion-toggle [(ngModel)]="reset" color="secondary" (ionChange)="doReset()"></ion-toggle>
-        </ion-item>
-      </ion-list>
+      <ion-item *ngIf="dataService.data.isAdmin">
+        <ion-icon name="refresh" item-start></ion-icon>
+        <ion-label> {{'PARAMS_DELETE_DATA' | translate}}</ion-label>
+        <ion-toggle [(ngModel)]="reset" color="secondary" (ionChange)="doReset()"></ion-toggle>
+      </ion-item>
 
       <ion-list radio-group [(ngModel)]="language" (ionChange)="doChangeLanguage()" style="width: 100%">
         <ion-list-header>
