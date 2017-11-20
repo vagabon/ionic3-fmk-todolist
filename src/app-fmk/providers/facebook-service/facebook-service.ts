@@ -53,7 +53,8 @@ export class FacebookServiceProvider {
                     this.setFacebookResponseApi(responseApi);
                     this.dataService.save();
                   }, () => {
-                    this.dataService.save();
+                    data.content[0].facebookUserId = 'old_' + data.content[0].facebookUserId;
+                    this.baseService.httpService.httpPost(this.baseService.URL + path + '/update', data.content[0]).subscribe();
                 });
               } else {
                 this.dataService.save();

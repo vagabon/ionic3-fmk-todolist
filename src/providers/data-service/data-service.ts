@@ -18,9 +18,4 @@ export class DataServiceProvider extends DataFmkServiceProvider {
     super(baseService);
   }
 
-  load() {
-    super.load();
-    this.baseService.addDataToJson(this.data, this.dataApp);
-  }
-
 }

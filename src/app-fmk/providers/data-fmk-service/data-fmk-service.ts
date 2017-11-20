@@ -22,7 +22,9 @@ export class DataFmkServiceProvider {
     facebookSignedRequest: '',
     facebookName: '',
     facebookPicture: '',
-    facebookMail: ''
+    facebookMail: '',
+    subscribe: false,
+    isAdmin: true
   };
 
   dataApp = {
@@ -67,16 +69,23 @@ export class DataFmkServiceProvider {
     });
   }
 
-  load() {
-    let storage = JSON.parse(localStorage.getItem(this.KEY));
-    if (storage) {
-      for (let key in this.data) {
-        if (!storage.hasOwnProperty(key)) {
-          storage[key] = this.data[key];
+  load(reset = false) {
+    if (!reset) {
+      let storage = JSON.parse(localStorage.getItem(this.KEY));
+      if (storage) {
+        for (let key in this.data) {
+          if (!storage.hasOwnProperty(key)) {
+            storage[key] = this.data[key];
+          }
         }
+        this.data = storage;
+        this.baseService.addDataToJson(this.data, this.dataApp);
+        console.log('LOAD STORAGE', this.data);
       }
-      this.data = storage;
-      console.log('LOAD STORAGE', this.data);
+    } else {
+      this.data = {...this.dataInit};
+      this.baseService.addDataToJson(this.data, this.dataApp);
+      console.log('reset', this.data);
     }
     this.newUser();
   }
@@ -132,6 +141,10 @@ export class DataFmkServiceProvider {
       }
     }
     console.log('DATA FROM API', newData);
+  }
+
+  canSubscribe() {
+    return this.data.subscribe;
   }
 }
 

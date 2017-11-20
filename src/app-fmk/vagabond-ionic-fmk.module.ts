@@ -20,6 +20,7 @@ import {GoogleAnalytics} from "@ionic-native/google-analytics";
 import {Geolocation} from '@ionic-native/geolocation';
 import {LogServiceProvider} from "./providers/log-service/log-service";
 import {BaseServiceProvider} from "./providers/base-service";
+import {ParamsDirective} from "./directives/params/params";
 
 @NgModule({
 	declarations: [
@@ -27,6 +28,7 @@ import {BaseServiceProvider} from "./providers/base-service";
     ExpandableHeaderDirective,
     ContentScrollDirective,
     ExpendableImageDirective,
+    ParamsDirective
   ],
 	imports: [
     IonicModule,
@@ -37,6 +39,7 @@ import {BaseServiceProvider} from "./providers/base-service";
     ExpandableHeaderDirective,
     ContentScrollDirective,
     ExpendableImageDirective,
+    ParamsDirective
   ]
 })
 export class VagabondIonic2FmkModule {
