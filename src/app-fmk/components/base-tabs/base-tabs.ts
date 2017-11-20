@@ -17,12 +17,12 @@ export abstract class BaseTabsPage {
   private swipeTime?: number;
 
   constructor(private platform: Platform, private renderer: Renderer2, public navCtrl: NavController, private dataService:DataFmkServiceProvider,
-              private gAService:GoogleAnalyticsServiceProvider, private adMobService:AdMobServiceProvider) {
+              private gAService:GoogleAnalyticsServiceProvider, private adMobService:AdMobServiceProvider, private isSubscribe: boolean) {
     if (this.dataService.data.tutorial === false) {
       this.navCtrl.setRoot("TutorialPage");
     }
     this.gAService.sendPageView("TabsPage");
-    this.adMobService.showBannierePub(this.dataService.canSubscribe() == '');
+    this.adMobService.showBannierePub(this.isSubscribe);
   }
 
   doOpenParams() {

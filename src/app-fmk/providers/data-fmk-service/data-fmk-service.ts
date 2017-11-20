@@ -23,7 +23,6 @@ export class DataFmkServiceProvider {
     facebookName: '',
     facebookPicture: '',
     facebookMail: '',
-    subscribe: false,
     isAdmin: true
   };
 
@@ -143,8 +142,5 @@ export class DataFmkServiceProvider {
     console.log('DATA FROM API', newData);
   }
 
-  canSubscribe() {
-    return this.data.subscribe;
-  }
 }
 
