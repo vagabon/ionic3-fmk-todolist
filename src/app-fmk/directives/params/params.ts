@@ -16,7 +16,7 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
   template: `
     <ion-card class="label">
       <ion-item>
-        <h2>MySimpleList</h2>
+        <h2>{{'TITLE' | translate}}</h2>
         <ion-badge color="secondary" big item-end>UserId : {{dataService.data.id}}</ion-badge>
         <ion-badge color="secondary" big item-end>v1.0</ion-badge>
       </ion-item>
