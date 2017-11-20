@@ -22,7 +22,7 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
       </ion-item>
       <ion-card-content>
         <div style="display: flex" padding>
-          <img src="assets/icon/logo_black.png" style=" width: 20%; height: 20%; background: transparent;">
+          <img src="{{image}}" style=" width: 20%; height: 20%; background: transparent;">
           <div style="width: 60%; flex: 1; padding: 0px 5px; text-align: justify;" [innerHtml]="'PARAMS_TEXT' | translate"></div>
         </div>
       </ion-card-content>
@@ -103,6 +103,7 @@ export class ParamsDirective {
   @Input() keyPaypall: string= '';
   @Input() keyPaypallSandbox: string= '';
   @Input() showDonation: boolean;
+  @Input() image: string = 'assets/icon/logo_black.png';
 
   reset:boolean;
   language:string = "en";
