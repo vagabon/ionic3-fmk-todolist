@@ -14,8 +14,8 @@ export abstract class BaseAppComponent {
 
   rootPage:any = "TabsPage";
 
-  constructor(private translate: TranslateService, private config: Config, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
-              private googleAnalyticsService: GoogleAnalyticsServiceProvider, private loggerService:LogServiceProvider) {
+  constructor(protected translate: TranslateService, protected config: Config, protected platform: Platform, protected statusBar: StatusBar, protected splashScreen: SplashScreen,
+              protected googleAnalyticsService: GoogleAnalyticsServiceProvider, protected loggerService:LogServiceProvider) {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();

@@ -16,8 +16,8 @@ export abstract class BaseTabsPage {
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
-  constructor(private platform: Platform, private renderer: Renderer2, public navCtrl: NavController, private dataService:DataFmkServiceProvider,
-              private gAService:GoogleAnalyticsServiceProvider, private adMobService:AdMobServiceProvider, private isSubscribe: boolean) {
+  constructor(protected platform: Platform, protected renderer: Renderer2, protected navCtrl: NavController, protected dataService:DataFmkServiceProvider,
+              protected gAService:GoogleAnalyticsServiceProvider, protected adMobService:AdMobServiceProvider, protected isSubscribe: boolean) {
     if (this.dataService.data.tutorial === false) {
       this.navCtrl.setRoot("TutorialPage");
     }
