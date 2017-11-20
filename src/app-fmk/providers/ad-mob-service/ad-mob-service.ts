@@ -18,7 +18,7 @@ export class AdMobServiceProvider {
   showBannierePub(show = true) {
     if (this.platform.is("cordova")) {
       this.platform.ready().then(() => {
-        if (!this.initBaniere) {
+        if (this.initBaniere) {
           this.toogleBannierePub(show);
         } else {
           const bannerConfig: AdMobFreeBannerConfig = {
