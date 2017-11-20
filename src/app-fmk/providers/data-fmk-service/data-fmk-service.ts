@@ -30,7 +30,7 @@ export class DataFmkServiceProvider {
 
   data = JSON.parse(JSON.stringify(this.dataInit));
 
-  constructor(public baseService:BaseServiceProvider, private configService: ConfigFmkServiceProvider) {
+  constructor(public baseService:BaseServiceProvider, protected configService: ConfigFmkServiceProvider) {
     if (typeof localStorage === 'object') {
       try {
         localStorage.setItem('localStorage', "1");
