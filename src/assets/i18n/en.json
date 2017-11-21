@@ -3,10 +3,9 @@
 
   "BACK_BUTTON_TEXT": "Back",
 
-  "TAB_SERIE_TITLE": "Tv Show",
-  "TAB_MOVIE_TITLE": "Movies",
-  "TAB_ACTOR_TITLE": "Actors",
-  "TAB_CINEMA_TITLE": "Cinema",
+  "TAB_MEMOS": "Memo",
+  "TAB_LISTS": "Tasks",
+  "TAB_STATS": "Stats",
 
   "TITLE_PARAMS": "Params",
 
@@ -17,14 +16,8 @@
   "PARAMS_FRENCH": "Français",
   "PARAMS_ENGLISH": "Anglais",
 
-  "TUTORIAL_SLIDE1_TITLE": "Welcome to CinéTchiCha",
-  "TUTORIAL_SLIDE1_DESCRIPTION": "<b>CinéTchiCha</b> offers you to find information about your favorite movies, series and actors.",
-
-  "TUTORIAL_SLIDE2_TITLE": "Intuitive use",
-  "TUTORIAL_SLIDE2_DESCRIPTION": "4 tabs are available to search for movies, TV shows, actors, and movie theaters near you.",
-
-  "TUTORIAL_SLIDE3_TITLE": "Multiple sources",
-  "TUTORIAL_SLIDE3_DESCRIPTION": "The data comes mainly from <a href='http://www.allocine.fr/'> AlloCiné </a>, but can be expanded by other sources like <a href = 'http: // www. themoviedb.org '> TheMovieDB </a>.",
+  "TUTORIAL_SLIDE1_TITLE": "Welcome to MySimpleList",
+  "TUTORIAL_SLIDE1_DESCRIPTION": "<b>MySimpleList</b> offers you to manage taks lists and mémos.",
 
   "TUTORIAL_CONTINUE_BUTTON": "Continue"
 }

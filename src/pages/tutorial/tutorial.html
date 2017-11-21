@@ -1,0 +1,17 @@
+
+<ion-content no-bounce>
+  <ion-slides pager="true" (ionSlideWillChange)="onSlideChangeStart($event)">
+    <ion-slide *ngFor="let slide of slides; let index = index">
+      <div class="slide-image">
+        <img [src]="slide.image" alt="{{slide.title}}" />
+      </div>
+      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+      <p [innerHTML]="slide.description"></p>
+      <button ion-button icon-end large clear (click)="doEndTutorial()" *ngIf="index == slides.length - 1" style="margin-bottom: 30px;">
+        {{ 'TUTORIAL_CONTINUE_BUTTON' | translate }}
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+      <div style="height: 56px; margin-bottom: 30px;" *ngIf="index < slides.length - 1"></div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

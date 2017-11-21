@@ -1,0 +1,8 @@
+<div id="fb-like" style="position: relative; width: 100%; max-width: 800px; margin: auto">
+  <div class="fb-like" data-href="https://cinetchicha.fr" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true"
+  style="position: absolute; z-index: 200000; right: 62px; top: 18px;"></div>
+</div>
+
+<ion-tabs #mainTabs class="tabs-positive" selectedIndex="{{selected}}" (swipe)="slide($event)" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
+  <ion-tab *ngFor="let tab of TABS" [root]="tab.page" tabTitle="{{tab.title | translate}}" tabIcon="{{tab.icon}}" (ionSelect)="selectTab($event)"></ion-tab>
+</ion-tabs>

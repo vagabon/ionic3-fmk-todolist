@@ -1,0 +1,20 @@
+page-tutorial {
+  .toolbar-background { background: transparent; border-color: transparent; }
+  .scroll-content { margin-bottom: 0px; background: #FFFFFF; }
+
+  .slide-zoom { height: 100%; display: flex; flex-direction: column; align-items: center; }
+
+  .slide-image {
+    height: 50%; display: flex; justify-content: center;
+    img { align-self: center; background: transparent; }
+  }
+  .slide-title { margin: 1.8rem 1rem; background: color($colors, primary); padding: 5px; color: #FFFFFF; text-align: center; }
+
+  b { font-weight: 500; }
+
+  p {
+    padding: 0 20px; font-size: 14px; line-height: 1.5; color: #000; text-align: justify; background: white; max-width: 500px;
+    img { height: 18px !important; }
+  }
+  h1, a, .button-clear-md { margin: 0; color: color($colors, primary); text-decoration: none; text-shadow: -1px -1px 0 color($colors, white), 1px -1px 0 color($colors, white), -1px 1px 0 color($colors, white), 1px 1px 0 color($colors, white); }
+}

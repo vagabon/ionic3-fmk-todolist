@@ -6,46 +6,18 @@ import {TranslateService} from "@ngx-translate/core";
 import {GoogleAnalyticsServiceProvider} from "../app-fmk/providers/google-analytics-service/google-analytics-service";
 import {LogServiceProvider} from "../app-fmk/providers/log-service/log-service";
 import {DataFmkServiceProvider} from "../app-fmk/providers/data-fmk-service/data-fmk-service";
-import {AdMobServiceProvider} from "../app-fmk/providers/ad-mob-service/ad-mob-service";
+import {BaseAppComponent} from "../app-fmk/components/base-app-component/base-app-component";
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp extends BaseAppComponent {
 
-  LANGUAGE_DEFAULT = "en";
-
-  @ViewChild('nav') nav: Nav;
-
-  rootPage: any = 'ListsPage';
-
-  constructor(private translate: TranslateService, private config: Config, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
-              private googleAnalyticsService: GoogleAnalyticsServiceProvider, private loggerService: LogServiceProvider, public dataService: DataFmkServiceProvider, private adMobService:AdMobServiceProvider) {
+  constructor(protected translate: TranslateService, protected config: Config, protected platform: Platform, protected statusBar: StatusBar, protected splashScreen: SplashScreen,
+              protected googleAnalyticsService: GoogleAnalyticsServiceProvider, protected loggerService:LogServiceProvider, private dataService: DataFmkServiceProvider) {
+    super(translate, config, platform, statusBar, splashScreen, googleAnalyticsService, loggerService);
     this.dataService.load();
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.statusBar.styleLightContent();
-      this.splashScreen.hide();
-      this.googleAnalyticsService.sendPageView("/");
-      this.adMobService.showBannierePub();
-    });
-    this.initTranslate();
-    if (location.href.indexOf("localhost") == -1) {
-      this.loggerService.disableLogger();
-    }
+    this.dataService.loadFromApiId(this.dataService.data.id);
   }
 
-  initTranslate() {
-    this.translate.setDefaultLang(this.LANGUAGE_DEFAULT);
-
-    if (this.translate.getBrowserLang() !== undefined) {
-      this.translate.use(this.translate.getBrowserLang());
-    } else {
-      this.translate.use(this.LANGUAGE_DEFAULT);
-    }
-
-    this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
-      this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
-    });
-  }
 }
