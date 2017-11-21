@@ -9,14 +9,10 @@ import {ConfigFmkServiceProvider} from "../../app-fmk/providers/config-fmk-servi
 @Injectable()
 export class DataServiceProvider extends DataFmkServiceProvider {
 
-  KEY:string = 'data_mysimplelist';
-
-  dataApp = {
-    lists: []
-  }
-
   constructor(public baseService:BaseServiceProvider, protected configService: ConfigFmkServiceProvider) {
-    super(baseService, configService);
+    super(baseService, configService, 'data_mysimplelist', {
+      lists: []
+    });
   }
 
 }
