@@ -13,8 +13,8 @@
   "PARAMS_TEXT": "Find information about your favorite movies, series and actors.<p>&nbsp;</p>The data comes mainly from <a href='http://www.allocine.fr/'> AlloCiné </a>, but can be expanded by other sources like <a href = 'http: // www. themoviedb.org '> TheMovieDB </a>.",
   "PARAMS_BIENVENUE": "Welcome",
   "PARAMS_LANGUAGE": "Language",
-  "PARAMS_FRENCH": "Français",
-  "PARAMS_ENGLISH": "Anglais",
+  "PARAMS_FRENCH": "French",
+  "PARAMS_ENGLISH": "English",
 
   "TUTORIAL_SLIDE1_TITLE": "Welcome to MySimpleList",
   "TUTORIAL_SLIDE1_DESCRIPTION": "<b>MySimpleList</b> offers you to manage taks lists and mémos.",

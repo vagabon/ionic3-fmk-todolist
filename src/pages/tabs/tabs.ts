@@ -19,7 +19,7 @@ export class TabsPage extends BaseTabsPage {
 
   constructor(protected platform: Platform, protected renderer: Renderer2, protected navCtrl: NavController, protected dataService:DataFmkServiceProvider,
               protected gAService:GoogleAnalyticsServiceProvider, protected adMobService:AdMobServiceProvider) {
-    super(platform, renderer, navCtrl, dataService, gAService, adMobService, false);
+    super(platform, renderer, navCtrl, dataService, gAService, adMobService, true);
   }
 
 }

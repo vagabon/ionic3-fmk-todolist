@@ -118,9 +118,7 @@ export class ParamsDirective {
 
   constructor(private navCtrl: NavController, private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
               protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
-    if (this.translate.getBrowserLang() !== undefined) {
-      this.language = this.translate.getBrowserLang();
-    }
+    this.language = this.dataService.data.language;
     this.gAService.sendPageView("ParamsPage");
 
     let paimentId = this.navParams.get("paimentId");
@@ -171,6 +169,8 @@ export class ParamsDirective {
 
   doChangeLanguage() {
     this.translate.use(this.language);
+    this.dataService.data.language = this.language;
+    this.dataService.save();
   }
 
   doLoginFacebook() {

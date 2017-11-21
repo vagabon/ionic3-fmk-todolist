@@ -20,6 +20,7 @@ export abstract class BaseDataService {
     facebookName: '',
     facebookPicture: '',
     facebookMail: '',
+    language: 'fr',
     isAdmin: false
   };
 

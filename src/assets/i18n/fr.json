@@ -13,8 +13,8 @@
   "PARAMS_TEXT": "Liste de tâches intuitive et efficace.",
   "PARAMS_BIENVENUE": "Bienvenue",
   "PARAMS_LANGUAGE": "Langue",
-  "PARAMS_FRENCH": "French",
-  "PARAMS_ENGLISH": "English",
+  "PARAMS_FRENCH": "Français",
+  "PARAMS_ENGLISH": "Anglais",
 
   "TUTORIAL_SLIDE1_TITLE": "Bienvenue sur MySimpleList",
   "TUTORIAL_SLIDE1_DESCRIPTION": "<h1>MySimpleList</h1> vous propose de gérer des listes de tâches ainsi que des mémos.",

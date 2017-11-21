@@ -24,7 +24,7 @@ export class AdMobServiceProvider {
           const bannerConfig: AdMobFreeBannerConfig = {
             id: this.configService.API_ADMOB_BANNIER,
             isTesting: false,
-            autoShow: true
+            autoShow: false
           };
           this.admobFree.banner.config(bannerConfig);
           this.admobFree.banner.prepare()
