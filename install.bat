@@ -33,7 +33,7 @@ goto COPY_WEB
 
 :COPY_WEB
 call xcopy www\** Y:\mysimplelist /s /h /e /k /f /c
-goto END
+goto START
 
 :END
 pause;
