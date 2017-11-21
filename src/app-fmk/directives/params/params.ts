@@ -86,7 +86,7 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
         <ion-toggle [(ngModel)]="reset" color="secondary" (ionChange)="doReset()"></ion-toggle>
       </ion-item>
 
-      <ion-list radio-group [(ngModel)]="language" (ionChange)="doChangeLanguage()" style="width: 100%">
+      <ion-list radio-group [(ngModel)]="dataService.data.language" (ionChange)="doChangeLanguage()" style="width: 100%">
         <ion-list-header>
           {{'PARAMS_LANGUAGE' | translate}}
         </ion-list-header>
@@ -113,12 +113,10 @@ export class ParamsDirective {
   reset:boolean;
   nameLoad: string;
   load:boolean;
-  language:string = "en";
   donate:boolean = false;
 
   constructor(private navCtrl: NavController, private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
               protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
-    this.language = this.dataService.data.language;
     this.gAService.sendPageView("ParamsPage");
 
     let paimentId = this.navParams.get("paimentId");
@@ -168,8 +166,7 @@ export class ParamsDirective {
   }
 
   doChangeLanguage() {
-    this.translate.use(this.language);
-    this.dataService.data.language = this.language;
+    this.translate.use(this.dataService.data.language);
     this.dataService.save();
   }
 
