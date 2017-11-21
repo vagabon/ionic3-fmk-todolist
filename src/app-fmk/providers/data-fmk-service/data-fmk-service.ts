@@ -22,7 +22,7 @@ export class DataFmkServiceProvider {
     facebookName: '',
     facebookPicture: '',
     facebookMail: '',
-    isAdmin: true
+    isAdmin: false
   };
 
   dataApp = {
