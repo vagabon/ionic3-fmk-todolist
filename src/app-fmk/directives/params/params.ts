@@ -117,6 +117,9 @@ export class ParamsDirective {
 
   constructor(private navCtrl: NavController, private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
               protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
+    if (!this.dataService.data.language) {
+      this.dataService.data.language = this.translate.getBrowserLang() !== undefined ? this.translate.getBrowserLang() : this.translate.getDefaultLang();
+    }
     this.gAService.sendPageView("ParamsPage");
 
     let paimentId = this.navParams.get("paimentId");
