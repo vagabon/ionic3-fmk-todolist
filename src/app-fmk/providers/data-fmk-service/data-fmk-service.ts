@@ -25,10 +25,14 @@ export class DataFmkServiceProvider {
     isAdmin: false
   };
 
+  dataApp = {
+  };
+
   data;
 
-  constructor(public baseService:BaseServiceProvider, protected configService: ConfigFmkServiceProvider, private key: string, private dataApp: any) {
+  constructor(public baseService:BaseServiceProvider, protected configService: ConfigFmkServiceProvider, private key: string, private _dataApp: any) {
     this.KEY = this.key;
+    this.dataApp = this._dataApp;
     if (typeof localStorage === 'object') {
       try {
         localStorage.setItem('localStorage', "1");
