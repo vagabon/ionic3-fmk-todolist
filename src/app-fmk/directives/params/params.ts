@@ -47,14 +47,14 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
       <button ion-button full color="secondary" (click)="doTutorial()">Tutorial</button>
     </ion-card>
 
-    <ion-card *ngIf="showDonation && donate === false" style="padding: 0; background: transparent; box-shadow: none;">
-      <button ion-button full (click)="doPaypalPaiementCordova()" style="background: #FFA926;" *ngIf="isCordova()">Donate with Paypall</button>
+    <ion-card *ngIf="showDonation && donate === false" style="padding: 0; margin: 0 10px; background: transparent; box-shadow: none;">
+      <button ion-button full (click)="doPaypalPaiementCordova()" style="background: #FFA926; margin: 0;" *ngIf="isCordova()">Donate with Paypall</button>
 
       <form #form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="width: 100%; position: relative;" *ngIf="!isCordova() && !isLocal()">
         <input type="hidden" name="cmd" value="_s-xclick">
 
         <input type="hidden" name="hosted_button_id" value="{{keyPaypall}}">
-        <button ion-button full (click)="form.submit()" style="background: #FFA926;">Donate with Paypall</button>
+        <button ion-button full (click)="form.submit()" style="background: #FFA926; margin: 0;">Donate with Paypall</button>
       </form>
 
       <form #form2 action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" style="width: 100%; position: relative;" *ngIf="!isCordova() && isLocal()">
@@ -62,16 +62,23 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
         <input type="hidden" name="hosted_button_id" value="{{keyPaypallSandbox}}">
         <input type="hidden" value="https://vagabond.synology.me/apiallocine/getPaypalPaiment.php" name="return">
         <input type="hidden" value="2" name="rm">
-        <button ion-button full (click)="form2.submit()" style="background: #FFA926;">Donate with Paypall</button>
+        <button ion-button full (click)="form2.submit()" style="background: #FFA926; margin: 0;">Donate with Paypall</button>
       </form>
     </ion-card>
-    <ion-card *ngIf="showDonation && donate === true" style="text-align: center; padding: 15px 5px; background: #FFA926; color: white; font-weight: bold;">
+    <ion-card *ngIf="showDonation && donate === true" style="text-align: center; margin: 0 10px; padding: 6px 5px; background: #FFA926; color: white; font-weight: bold;">
       <h2 style="color: white">Merci pour votre donation :)</h2>
     </ion-card>
 
     <app-content-scroll>
       
       <ng-content></ng-content>
+
+      <ion-item *ngIf="dataService.data.isAdmin">
+        <ion-icon name="help" item-start></ion-icon>
+        <ion-label>Load API</ion-label>
+        <ion-input [(ngModel)]="nameLoad"></ion-input>
+        <ion-toggle [(ngModel)]="load" color="secondary" (ionChange)="doLoad()"></ion-toggle>
+      </ion-item>
       
       <ion-item *ngIf="dataService.data.isAdmin">
         <ion-icon name="refresh" item-start></ion-icon>
@@ -100,10 +107,12 @@ export class ParamsDirective {
 
   @Input() keyPaypall: string= '';
   @Input() keyPaypallSandbox: string= '';
-  @Input() showDonation: boolean;
+  @Input() showDonation: boolean = true;
   @Input() image: string = 'assets/icon/logo_black.png';
 
   reset:boolean;
+  nameLoad: string;
+  load:boolean;
   language:string = "en";
   donate:boolean = false;
 
@@ -120,6 +129,8 @@ export class ParamsDirective {
         this.donate = true;
       });
     }
+    this.nameLoad = this.dataService.data.name;
+    this.load = false;
   }
 
   doPaypalPaiementCordova() {
@@ -143,6 +154,17 @@ export class ParamsDirective {
         this.reset = false;
       }, () => {
         this.reset = false;
+      });
+    }
+  }
+
+  doLoad() {
+    if (this.load === true) {
+      this.alertService.showConfirm('Load from API', 'Synchroniser vos données en ligne ?', () => {
+        this.dataService.loadFromApiName(this.nameLoad);
+        this.load = false;
+      }, () => {
+        this.load = false;
       });
     }
   }

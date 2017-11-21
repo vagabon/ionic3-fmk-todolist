@@ -137,6 +137,8 @@ export class DataFmkServiceProvider {
       for (let key in newData) {
         this.data[key] = newData[key];
       }
+    } else {
+      alert('user not found');
     }
     console.log('DATA FROM API', newData);
   }
