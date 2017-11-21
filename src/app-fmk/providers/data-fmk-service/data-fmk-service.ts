@@ -28,7 +28,7 @@ export class DataFmkServiceProvider {
   dataApp = {
   };
 
-  data = JSON.parse(JSON.stringify(this.dataInit));
+  data;
 
   constructor(public baseService:BaseServiceProvider, protected configService: ConfigFmkServiceProvider) {
     if (typeof localStorage === 'object') {
@@ -41,6 +41,8 @@ export class DataFmkServiceProvider {
         //alert('Your web browser does not support storing settings locally. In Safari, the most common cause of this is using "Private Browsing Mode". Some settings may not save or some features may not work properly for you.');
       }
     }
+    this.data = JSON.parse(JSON.stringify(this.dataInit));
+    this.baseService.addDataToJson(this.data, this.dataApp);
   }
 
   load(reset = false) {
@@ -53,7 +55,6 @@ export class DataFmkServiceProvider {
           }
         }
         this.data = storage;
-        this.baseService.addDataToJson(this.data, this.dataApp);
         console.log('LOAD STORAGE', this.data);
       }
     } else {
@@ -137,8 +138,6 @@ export class DataFmkServiceProvider {
       for (let key in newData) {
         this.data[key] = newData[key];
       }
-    } else {
-      alert('user not found');
     }
     console.log('DATA FROM API', newData);
   }
