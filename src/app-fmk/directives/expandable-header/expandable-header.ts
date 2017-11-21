@@ -109,7 +109,7 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
       this.swipeCoord = coord;
     } else if (when === 'end') {
       const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
-      let scrollTop = Math.floor((direction[1] * -1) / 1.5);
+      let scrollTop = Math.floor((direction[1] * -1));
       let element = event.target;
       let canSlide = true;
       while (element.parentElement) {
