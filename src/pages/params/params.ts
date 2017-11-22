@@ -25,6 +25,7 @@ export class ParamsPage {
 
   constructor(private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
               protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
+    this.gAService.sendPageView();
     if (this.translate.getBrowserLang() !== undefined) {
       this.language = this.translate.getBrowserLang();
     }

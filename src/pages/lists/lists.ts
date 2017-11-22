@@ -14,7 +14,7 @@ export class ListsPage {
   search: string = "";
 
   constructor(private navCtrl:NavController, private gAService:GoogleAnalyticsServiceProvider, private dataService:DataFmkServiceProvider, private alertService:AlertServiceProvider) {
-    this.gAService.sendPageView("ListsPage");
+    this.gAService.sendPageView();
   }
 
   doCreate() {

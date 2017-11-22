@@ -25,7 +25,7 @@ export class TutorialPage {
   constructor(public navCtrl: NavController, translate: TranslateService, private dataService: DataFmkServiceProvider, protected gAService: GoogleAnalyticsServiceProvider,
               protected adMobService:AdMobServiceProvider) {
     this.adMobService.showBannierePub(false);
-    this.gAService.sendPageView("TutorialPage");
+    this.gAService.sendPageView();
     // TODO : add compte desc compte facebook + synchro données + dispo Store + site Web
     translate.get([
       "TUTORIAL_SLIDE1_TITLE",

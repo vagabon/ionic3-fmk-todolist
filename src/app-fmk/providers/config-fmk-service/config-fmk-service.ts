@@ -7,6 +7,9 @@ import {NavController} from "ionic-angular";
 @Injectable()
 export class ConfigFmkServiceProvider {
 
+  TITLE = "app_title";
+  VERSION = "app_version";
+
   PATH_USER = "user";
 
   API_FACEBOOK_TEST: string = 'API_FACEBOOK_TEST';
@@ -20,6 +23,7 @@ export class ConfigFmkServiceProvider {
   API_ADMOB_BANNIER: string = 'API_ADMOB_BANNIER';
 
   API_GOOGLE_ANALYTICS: string = 'API_GOOGLE_ANALYTICS';
+  API_GOOGLE_ANALYTICS_DEBUG: boolean = false;
 
   API_PAYPAL_KEY: string = 'API_PAYPAL_KEY';
   API_PAYPAL_SANDBOX_KEY: string = 'API_PAYPAL_SANDBOX_KEY';

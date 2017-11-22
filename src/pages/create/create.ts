@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DataFmkServiceProvider} from "../../app-fmk/providers/data-fmk-service/data-fmk-service";
+import {GoogleAnalyticsServiceProvider} from "../../app-fmk/providers/google-analytics-service/google-analytics-service";
 
 /**
  * Generated class for the CreatePage page.
@@ -36,7 +37,8 @@ export class CreatePage {
     ["Noir", "#000000"],
   ]
 
-  constructor(private navCtrl: NavController, private navParams:NavParams, private dataService: DataFmkServiceProvider) {
+  constructor(private navCtrl: NavController, private navParams:NavParams, private dataService: DataFmkServiceProvider, private gAService:GoogleAnalyticsServiceProvider) {
+    this.gAService.sendPageView();
     this.type = this.navParams.get("type");
     let id = this.navParams.get("id");
     if (id > 0) {

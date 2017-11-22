@@ -21,7 +21,7 @@ export abstract class BaseTabsPage {
     if (this.dataService.data.tutorial === false) {
       this.navCtrl.setRoot("TutorialPage");
     }
-    this.gAService.sendPageView("TabsPage");
+    this.gAService.sendPageView();
     this.adMobService.showBannierePub(this.isSubscribe);
   }
 

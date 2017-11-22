@@ -7,6 +7,9 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
 @Injectable()
 export class ConfigServiceProvider {
 
+  TITLE = "mysimplelist";
+  VERSION = "1.0";
+
   PATH_USER = "nobrain/user";
 
   API_FACEBOOK_TEST: string = '116657432071061';
@@ -20,6 +23,7 @@ export class ConfigServiceProvider {
   API_ADMOB_BANNIER: string = 'ca-app-pub-6760229630893031/8737211204';
 
   API_GOOGLE_ANALYTICS: string = 'UA-109185979-2';
+  API_GOOGLE_ANALYTICS_DEBUG: boolean = true;
 
   API_PAYPAL_KEY: string = 'ATyJ-xye8oqzE_OiLrXVgzmATjlao4tXqwpga-imxq2KIHIiCmKk12dxkUI7JyYJXP2omZ7OmaxWA_sS';
   API_PAYPAL_SANDBOX_KEY: string = 'AZ532JVCQApMc5-e3cmFNXUP_ZcCeGntywOkCg5LzrN8IH5-tNo3c-tJB403ZShm1yxzsuMQS4QLpQ55';
