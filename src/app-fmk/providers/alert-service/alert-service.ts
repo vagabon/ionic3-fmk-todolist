@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AlertController, ModalController, Popover, PopoverController} from "ionic-angular";
+import {AlertController, ModalController, Popover, PopoverController, ToastController} from "ionic-angular";
 
 /*
 */
@@ -8,7 +8,7 @@ export class AlertServiceProvider {
 
   popover: Popover;
 
-  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public popoverCtrl: PopoverController) {
+  constructor(public alertCtrl: AlertController, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private toastCtrl: ToastController) {
   }
 
   promptAlert(title, message) {
@@ -51,5 +51,15 @@ export class AlertServiceProvider {
   openModale(page, data = {}) {
     let modal = this.modalCtrl.create(page, data);
     modal.present();
+  }
+
+  presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom',
+      showCloseButton: true
+    });
+    toast.present();
   }
 }

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {GoogleAnalytics} from "@ionic-native/google-analytics";
 import {Platform} from "ionic-angular";
 import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
+import {AlertServiceProvider} from "../alert-service/alert-service";
 
 declare let ga: any;
 
@@ -11,18 +12,24 @@ declare let ga: any;
 @Injectable()
 export class GoogleAnalyticsServiceProvider {
 
-  constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics) {
+  constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics, private alertService: AlertServiceProvider) {
   }
 
   start() {
     if (this.platform.is('cordova')) {
       this.googleAnalytics.startTrackerWithId(this.configService.API_GOOGLE_ANALYTICS).then(() => {
         console.log('Google analytics is ready now');
+        this.alertService.presentToast('Google analytics is ready now');
         this.googleAnalytics.debugMode();
         this.googleAnalytics.setAllowIDFACollection(true);
-        this.googleAnalytics.trackEvent('launchMobile', 'avosgrattes_1.0').catch((error) => {console.error(error); });
+        this.googleAnalytics.trackEvent('launchMobile', 'avosgrattes_1.0').catch((error) => {
+          console.error(error);
+        });
         this.googleAnalytics.trackView('/');
-      }).catch(error => { console.error('Error starting GoogleAnalytics', error); });
+      }).catch(error => {
+        console.error('Error starting GoogleAnalytics', error);
+        this.alertService.presentToast('Error starting GoogleAnalytics : ' + JSON.stringify(error));
+      });
     }
   }
 
