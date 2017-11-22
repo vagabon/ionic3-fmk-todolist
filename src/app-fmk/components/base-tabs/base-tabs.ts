@@ -1,10 +1,10 @@
 import {Renderer2, ViewChild} from "@angular/core";
-import {NavController, Platform, Tabs} from "ionic-angular";
-import {GoogleAnalyticsServiceProvider} from "../../providers/google-analytics-service/google-analytics-service";
-import {DataFmkServiceProvider} from "../../providers/data-fmk-service/data-fmk-service";
+import {NavController, NavParams, Tabs} from "ionic-angular";
 import {AdMobServiceProvider} from "../../providers/ad-mob-service/ad-mob-service";
+import {BasePage} from "../base-page/base-page";
+import {MainServiceProvider} from "../main-service/main-service";
 
-export abstract class BaseTabsPage {
+export abstract class BaseTabsPage extends BasePage {
 
   TABS: Array<any> = [];
 
@@ -16,13 +16,13 @@ export abstract class BaseTabsPage {
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
-  constructor(protected platform: Platform, protected renderer: Renderer2, protected navCtrl: NavController, protected dataService:DataFmkServiceProvider,
-              protected gAService:GoogleAnalyticsServiceProvider, protected adMobService:AdMobServiceProvider, protected isSubscribe: boolean) {
-    if (this.dataService.data.tutorial === false) {
+  constructor(protected navCtrl: NavController, protected navParams:NavParams, protected renderer: Renderer2, protected mainService:MainServiceProvider,
+              protected adMobService:AdMobServiceProvider, protected showBanniere: boolean) {
+    super(navCtrl, navParams, mainService);
+    if (this.mainService.dataService.data.tutorial === false) {
       this.navCtrl.setRoot("TutorialPage");
     }
-    this.gAService.sendPageView();
-    this.adMobService.showBannierePub(this.isSubscribe);
+    this.adMobService.showBannierePub(this.showBanniere);
   }
 
   doOpenParams() {
@@ -30,7 +30,7 @@ export abstract class BaseTabsPage {
   }
 
   slide(e) {
-    if (!this.platform.is( 'android') && !this.platform.is( 'ios')) {
+    if (!this.mainService.platform.is( 'android') && !this.mainService.platform.is( 'ios')) {
       this.doSwipe(e, e.direction == '4');
     }
   }
@@ -56,7 +56,7 @@ export abstract class BaseTabsPage {
     let element = event.target;
     let canSlide = true;
     while (element.parentElement) {
-      if (element.id == "map" || element.classList.contains("slides")) {
+      if (element.id == "map" || element.classList.contains("slides") || element.classList.contains("active-slide")) {
         canSlide = false;
         break;
       }

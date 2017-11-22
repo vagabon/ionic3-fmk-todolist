@@ -1,9 +1,8 @@
 import {Component, Renderer2} from "@angular/core";
-import {IonicPage, NavController, Platform} from "ionic-angular";
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {BaseTabsPage} from "../../app-fmk/components/base-tabs/base-tabs";
-import {GoogleAnalyticsServiceProvider} from "../../app-fmk/providers/google-analytics-service/google-analytics-service";
 import {AdMobServiceProvider} from "../../app-fmk/providers/ad-mob-service/ad-mob-service";
-import {DataFmkServiceProvider} from "../../app-fmk/providers/data-fmk-service/data-fmk-service";
+import {MainServiceProvider} from "../../app-fmk/components/main-service/main-service";
 
 @IonicPage({ segment: 'tab', priority: 'high' })
 @Component({
@@ -17,9 +16,8 @@ export class TabsPage extends BaseTabsPage {
     { title: 'TAB_STATS', icon: 'md-stats', page: 'ListsPage' }
   ];
 
-  constructor(protected platform: Platform, protected renderer: Renderer2, protected navCtrl: NavController, protected dataService:DataFmkServiceProvider,
-              protected gAService:GoogleAnalyticsServiceProvider, protected adMobService:AdMobServiceProvider) {
-    super(platform, renderer, navCtrl, dataService, gAService, adMobService, true);
+  constructor(protected navCtrl: NavController, protected navParams:NavParams, protected renderer: Renderer2, protected mainService:MainServiceProvider, protected adMobService:AdMobServiceProvider) {
+    super(navCtrl, navParams, renderer, mainService, adMobService, true);
   }
 
 }

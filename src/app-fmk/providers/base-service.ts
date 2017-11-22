@@ -43,6 +43,22 @@ export class BaseServiceProvider {
     });
   }
 
+  httpPost(url, json) {
+    return this.httpService.httpPost(url, json);
+  }
+
+  postToAppLog(userId, userName, categorie, action, date) {
+    let appLog = {
+      app: this.configService.TITLE,
+      userId: userId,
+      userName: userName,
+      categorie: categorie,
+      action: action,
+      date: date
+    }
+    this.httpPost(this.URL + "applog/update", appLog).subscribe();
+  }
+
   addDataToEntityCode(entities, data) {
     let find = entities.find(item => item.code == data.code);
     for (let j in data) {

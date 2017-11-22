@@ -1,11 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {NavParams, Platform} from 'ionic-angular';
+import {NavParams, NavController, Platform} from 'ionic-angular';
 import {TranslateService} from "@ngx-translate/core";
 import {DataFmkServiceProvider} from "../../providers/data-fmk-service/data-fmk-service";
 import {FacebookServiceProvider} from "../../providers/facebook-service/facebook-service";
 import {PaypalServiceProvider} from "../../providers/paypal-service/paypal-service";
 import {AlertServiceProvider} from "../../providers/alert-service/alert-service";
-import {NavController} from "ionic-angular/navigation/nav-controller";
 
 /**
  * Directive permettant d'afficher des données suplémentaire.

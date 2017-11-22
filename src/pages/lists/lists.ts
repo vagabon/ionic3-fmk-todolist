@@ -1,20 +1,19 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
-import {GoogleAnalyticsServiceProvider} from "../../app-fmk/providers/google-analytics-service/google-analytics-service";
-import {DataFmkServiceProvider} from "../../app-fmk/providers/data-fmk-service/data-fmk-service";
-import {AlertServiceProvider} from "../../app-fmk/providers/alert-service/alert-service";
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {BasePage} from "../../app-fmk/components/base-page/base-page";
+import {MainServiceProvider} from "../../app-fmk/components/main-service/main-service";
 
 @IonicPage()
 @Component({
   selector: 'page-lists',
   templateUrl: 'lists.html'
 })
-export class ListsPage {
+export class ListsPage extends BasePage {
 
   search: string = "";
 
-  constructor(private navCtrl:NavController, private gAService:GoogleAnalyticsServiceProvider, private dataService:DataFmkServiceProvider, private alertService:AlertServiceProvider) {
-    this.gAService.sendPageView();
+  constructor(protected navCtrl: NavController, protected navParams:NavParams, protected mainService:MainServiceProvider) {
+    super(navCtrl, navParams, mainService);
   }
 
   doCreate() {
@@ -36,14 +35,14 @@ export class ListsPage {
 
 
   changeIndexList(oldIndex, newIndex) {
-    if (newIndex >= this.dataService.data.lists.length) {
-      var k = newIndex - this.dataService.data.lists.length;
+    if (newIndex >= this.mainService.dataService.data.lists.length) {
+      var k = newIndex - this.mainService.dataService.data.lists.length;
       while ((k--) + 1) {
-        this.dataService.data.lists.push(undefined);
+        this.mainService.dataService.data.lists.push(undefined);
       }
     }
-    this.dataService.data.lists.splice(newIndex, 0, this.dataService.data.lists.splice(oldIndex, 1)[0]);
-    this.dataService.save();
+    this.mainService.dataService.data.lists.splice(newIndex, 0, this.mainService.dataService.data.lists.splice(oldIndex, 1)[0]);
+    this.mainService.dataService.save();
   }
 
   doReorderItemsList(event) {
@@ -51,9 +50,9 @@ export class ListsPage {
   }
 
   doDeleteItemList(item: any, itemSelect: any) {
-    this.alertService.showConfirm('Alerte', 'Supprimer : ' + item.name, () => {
-      this.dataService.data.lists.splice(this.dataService.data.lists.indexOf(item), 1);
-      this.dataService.save();
+    this.mainService.alertService.showConfirm('Alerte', 'Supprimer : ' + item.name, () => {
+      this.mainService.dataService.data.lists.splice(this.mainService.dataService.data.lists.indexOf(item), 1);
+      this.mainService.dataService.save();
     });
     itemSelect.close();
   }

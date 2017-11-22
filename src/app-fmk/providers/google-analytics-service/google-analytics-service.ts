@@ -3,6 +3,8 @@ import {GoogleAnalytics} from "@ionic-native/google-analytics";
 import {Platform} from "ionic-angular";
 import {ConfigFmkServiceProvider} from "../config-fmk-service/config-fmk-service";
 import {AlertServiceProvider} from "../alert-service/alert-service";
+import {BaseServiceProvider} from "../base-service";
+import {DataFmkServiceProvider} from "../data-fmk-service/data-fmk-service";
 
 declare let ga: any;
 
@@ -14,11 +16,13 @@ export class GoogleAnalyticsServiceProvider {
 
   initGoogleAnalytics: boolean = false;
 
-  constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics, private alertService: AlertServiceProvider) {
+  constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics, private alertService: AlertServiceProvider,
+              private baseService:BaseServiceProvider, private dataService:DataFmkServiceProvider) {
   }
 
   start(page: string = '/', event: string = 'launchMobile', action: string = this.configService.TITLE + "_" + this.configService.VERSION) {
     if (this.platform.is('cordova')) {
+      this.baseService.postToAppLog(this.dataService.data.id, this.dataService.data.name, 'pageviewMobile', location.hash, new Date());
       if (this.initGoogleAnalytics === false) {
         this.googleAnalytics.startTrackerWithId(this.configService.API_GOOGLE_ANALYTICS).then(() => {
           console.log('Google analytics is ready now');
@@ -51,7 +55,7 @@ export class GoogleAnalyticsServiceProvider {
     if (this.platform.is('cordova')) {
       this.start(location.hash, 'pageviewMobile', location.hash);
     } else {
-      if (location.href.indexOf('localhost') == -1) {
+      if (location.href.indexOf('localhost') != -1) {
         let page2 = location.href;
         let split = page2.split("/");
         let newPage = "";
@@ -61,6 +65,7 @@ export class GoogleAnalyticsServiceProvider {
         ga('send', 'event', 'pageview', newPage);
         ga('set', 'page', newPage);
         ga('send', 'pageview');
+        this.baseService.postToAppLog(this.dataService.data.id, this.dataService.data.name, 'pageviewSite', newPage, new Date());
       }
     }
   }

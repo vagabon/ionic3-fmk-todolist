@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {NavController} from "ionic-angular/navigation/nav-controller";
+import {Injectable} from '@angular/core';
+import {NavController} from 'ionic-angular';
 
 /*
   Service pour la configuration des données.

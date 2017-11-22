@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
 import {TranslateService} from "@ngx-translate/core/src/translate.service";
 import {Platform} from "ionic-angular/platform/platform";
 import {GoogleAnalyticsServiceProvider} from "../../providers/google-analytics-service/google-analytics-service";

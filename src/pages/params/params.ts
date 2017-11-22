@@ -1,11 +1,8 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavParams, Platform} from 'ionic-angular';
-import {TranslateService} from "@ngx-translate/core";
-import {DataFmkServiceProvider} from "../../app-fmk/providers/data-fmk-service/data-fmk-service";
-import {FacebookServiceProvider} from "../../app-fmk/providers/facebook-service/facebook-service";
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {PaypalServiceProvider} from "../../app-fmk/providers/paypal-service/paypal-service";
-import {GoogleAnalyticsServiceProvider} from "../../app-fmk/providers/google-analytics-service/google-analytics-service";
-import {AlertServiceProvider} from "../../app-fmk/providers/alert-service/alert-service";
+import {MainServiceProvider} from "../../app-fmk/components/main-service/main-service";
+import {BasePage} from "../../app-fmk/components/base-page/base-page";
 
 /**
  * Modale de paramètre.
@@ -16,20 +13,18 @@ import {AlertServiceProvider} from "../../app-fmk/providers/alert-service/alert-
   selector: 'page-params',
   templateUrl: 'params.html',
 })
-export class ParamsPage {
+export class ParamsPage extends BasePage {
 
   reset:boolean;
   language:string = "en";
 
   donate:boolean = false;
 
-  constructor(private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
-              protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
-    this.gAService.sendPageView();
-    if (this.translate.getBrowserLang() !== undefined) {
-      this.language = this.translate.getBrowserLang();
+  constructor(protected navCtrl: NavController, protected navParams:NavParams, protected mainService:MainServiceProvider, private paypalService:PaypalServiceProvider) {
+    super(navCtrl, navParams, mainService);
+    if (this.mainService.translate.getBrowserLang() !== undefined) {
+      this.language = this.mainService.translate.getBrowserLang();
     }
-    this.gAService.sendPageView();
 
     let paimentId = this.navParams.get("paimentId");
     if (paimentId && paimentId > 0) {
@@ -39,10 +34,6 @@ export class ParamsPage {
     }
   }
 
-  ionViewWillEnter() {
-    this.gAService.sendPageView();
-  }
-
   doPaypalPaiementCordova() {
     this.paypalService.getPaypalPaimentFromCordova().subscribe(() => {
       this.donate = true;
@@ -50,7 +41,7 @@ export class ParamsPage {
   }
 
   isCordova() {
-    return this.platform.is('cordova');
+    return this.mainService.platform.is('cordova');
   }
 
   isLocal() {
@@ -59,10 +50,10 @@ export class ParamsPage {
 
   doReset() {
     if (this.reset === true) {
-      this.alertService.showConfirm('Alerte', 'Supprimer les données ?', () => {
-        this.dataService.data = {...this.dataService.dataInit};
-        this.dataService.baseService.addDataToJson(this.dataService.data, this.dataService.dataApp);
-        this.dataService.save();
+      this.mainService.alertService.showConfirm('Alerte', 'Supprimer les données ?', () => {
+        this.mainService.dataService.data = {...this.mainService.dataService.dataInit};
+        this.mainService.dataService.baseService.addDataToJson(this.mainService.dataService.data, this.mainService.dataService.dataApp);
+        this.mainService.dataService.save();
         this.reset = false;
       }, () => {
         this.reset = false;
@@ -71,7 +62,7 @@ export class ParamsPage {
   }
 
   doChangeLanguage() {
-    this.translate.use(this.language);
+    this.mainService.translate.use(this.language);
   }
 
 }

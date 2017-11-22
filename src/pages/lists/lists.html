@@ -13,7 +13,7 @@
     <ion-list style="width: 100%;">
       <!--(ionItemReorder)=""-->
       <ion-item-group reorder="true" (ionItemReorder)="doReorderItemsList($event)">
-      <ion-item-sliding #itemSelect *ngFor="let item of dataService.data.lists" (click)="doSelectItemList(item)" [style.borderLeft]="'10px solid ' + item.color">
+      <ion-item-sliding #itemSelect *ngFor="let item of mainService.dataService.data.lists" (click)="doSelectItemList(item)" [style.borderLeft]="'10px solid ' + item.color">
         <ion-item>
           {{item.name}}
           <p>{{item.date | date: 'dd/MM/yyyy' }}</p>
