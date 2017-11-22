@@ -50,8 +50,7 @@ export class GoogleAnalyticsServiceProvider {
   sendPageView() {
     if (this.platform.is('cordova')) {
       this.start(location.hash, 'pageviewMobile', location.hash);
-    }
-    try {
+    } else {
       if (location.href.indexOf('localhost') == -1) {
         let page2 = location.href;
         let split = page2.split("/");
@@ -63,9 +62,6 @@ export class GoogleAnalyticsServiceProvider {
         ga('set', 'page', newPage);
         ga('send', 'pageview');
       }
-    } catch (exception) {
-      alert(JSON.parse(exception));
-      console.error('GOOGLE_ANALYTICS', exception);
     }
   }
 

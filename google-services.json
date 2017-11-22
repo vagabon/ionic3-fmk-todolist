@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "429143885170",
+    "firebase_url": "https://mysimplelist-b4914.firebaseio.com",
+    "project_id": "mysimplelist-b4914",
+    "storage_bucket": "mysimplelist-b4914.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429143885170:android:c0fc16042af2dc6f",
+        "android_client_info": {
+          "package_name": "vagabond.app.mysimplelist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429143885170-qdjupkaqk66t7qk2qhmgsttlvu2fi2bn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwVgLe7J28B-2a3VUKMHg26TcwK3kSX_I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

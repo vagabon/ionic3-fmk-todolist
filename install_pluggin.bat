@@ -34,3 +34,5 @@ npm install --save @ionic-native/firebase-analytics
 
 ionic cordova plugin add cordova-plugin-firebase
 $ npm install --save @ionic-native/firebase
+
+cordova plugin add cordova-plugin-fcm
