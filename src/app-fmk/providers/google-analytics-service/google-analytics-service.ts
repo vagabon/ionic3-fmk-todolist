@@ -12,14 +12,14 @@ declare let ga: any;
 export class GoogleAnalyticsServiceProvider {
 
   constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics) {
-    platform.ready().then(() => {
-      if (platform.is('cordova')) {
+    this.platform.ready().then(() => {
+      if (this.platform.is('cordova')) {
         this.googleAnalytics.startTrackerWithId(this.configService.API_GOOGLE_ANALYTICS).then(() => {
           console.log('Google analytics is ready now');
-          this.googleAnalytics.trackView('/');
           this.googleAnalytics.debugMode();
           this.googleAnalytics.setAllowIDFACollection(true);
-        }).catch(error => console.error('Error starting GoogleAnalytics', error));
+          this.googleAnalytics.trackView('/');
+        }).catch(error => { console.error('Error starting GoogleAnalytics', error); });
       }
     });
   }
@@ -31,18 +31,22 @@ export class GoogleAnalyticsServiceProvider {
   sendPageView(page: string = '/') {
     if (this.platform.is('cordova')) {
       try {
-        this.googleAnalytics.trackEvent('pageview', page).catch((error) => {console.error(error); });
-        this.googleAnalytics.trackView(page, "/" + page, page == '/' ? true : false).catch((error) => {console.error(error); });
+        this.googleAnalytics.trackEvent('pageviewMobile', location.hash).catch((error) => {console.error(error); });
+        this.googleAnalytics.trackView(page, location.hash, page == '/' ? true : false).catch((error) => {console.error(error); });
       } catch (exception) {
         console.error('GOOGLE_ANALYTICS_PLUGGIN ', exception);
       }
     }
     try {
       if (location.href.indexOf('localhost') != -1) {
-        page = location.hash;
-        if (!page.startsWith('/')) page = `/${page}`;
-        ga('send', 'pageview', page);
-        ga('set', 'page', page);
+        let page2 = location.href;
+        let split = page2.split("/");
+        let newPage = "";
+        for (let i=3; i < split.length; i++) {
+          newPage += "/" + split[i];
+        }
+        ga('send', 'pageview', newPage);
+        ga('set', 'page', newPage);
         ga('send', 'pageview');
       }
     } catch (exception) {

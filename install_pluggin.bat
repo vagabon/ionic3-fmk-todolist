@@ -29,3 +29,8 @@ call ionic cordova plugin add com.paypal.cordova.mobilesdk
 
 call npm install --save @ionic-native/paypal
 
+call cordova plugin add cordova-plugin-firebase-analytics --save
+npm install --save @ionic-native/firebase-analytics
+
+ionic cordova plugin add cordova-plugin-firebase
+$ npm install --save @ionic-native/firebase

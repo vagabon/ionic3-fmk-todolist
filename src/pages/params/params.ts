@@ -28,7 +28,7 @@ export class ParamsPage {
     if (this.translate.getBrowserLang() !== undefined) {
       this.language = this.translate.getBrowserLang();
     }
-    this.gAService.sendPageView("ParamsPage");
+    this.gAService.sendPageView("/params");
 
     let paimentId = this.navParams.get("paimentId");
     if (paimentId && paimentId > 0) {
@@ -36,6 +36,10 @@ export class ParamsPage {
         this.donate = true;
       });
     }
+  }
+
+  ionViewWillEnter() {
+    this.gAService.sendPageView("/params");
   }
 
   doPaypalPaiementCordova() {

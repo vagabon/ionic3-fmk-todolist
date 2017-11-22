@@ -7,14 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-google-analytics": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-google-analytics@^1.8.3"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-admob-free": {
         "source": {
             "type": "registry",
@@ -105,5 +97,29 @@
             "APP_ID": "1969648299943798",
             "APP_NAME": "MySimpleList"
         }
+    },
+    "cordova-plugin-google-analytics": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-google-analytics@^1.8.3"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-support-google-services": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-support-google-services@~1.0.0"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "cordova-plugin-firebase": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-firebase"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

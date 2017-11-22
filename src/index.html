@@ -11,7 +11,19 @@
       document.write('<base href="/" />');
     }
   </script>
-
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCKE8JtQM9Db2xzpLt10cHfBt942lncD7U",
+      authDomain: "mysimplelist-b4914.firebaseapp.com",
+      databaseURL: "https://mysimplelist-b4914.firebaseio.com",
+      projectId: "mysimplelist-b4914",
+      storageBucket: "mysimplelist-b4914.appspot.com",
+      messagingSenderId: "429143885170"
+    };
+    firebase.initializeApp(config);
+  </script>
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
@@ -20,22 +32,21 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#474141">
 
-  <script src="cordova.js"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+  <script src="cordova.js"></script>
   <script type="text/javascript" src="https://connect.facebook.net/fr_FR/sdk.js"></script>
 
   <script type="text/javascript" src="js/paypal-mobile-js-helper.js"></script>
 
-  <!-- un-comment this code to enable service worker
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
         .then(() => console.log('service worker installed'))
         .catch(err => console.error('Error', err));
     }
-  </script>-->
+  </script>
 
   <link href="build/main.css" rel="stylesheet">
 
