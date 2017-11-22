@@ -1,5 +1,5 @@
 import {NavController, NavParams} from 'ionic-angular';
-import {MainServiceProvider} from "../main-service/main-service";
+import {MainServiceProvider} from "../../providers/main-service/main-service";
 
 export abstract class BasePage {
 

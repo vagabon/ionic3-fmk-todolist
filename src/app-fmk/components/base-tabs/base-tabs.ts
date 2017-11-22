@@ -2,7 +2,7 @@ import {Renderer2, ViewChild} from "@angular/core";
 import {NavController, NavParams, Tabs} from "ionic-angular";
 import {AdMobServiceProvider} from "../../providers/ad-mob-service/ad-mob-service";
 import {BasePage} from "../base-page/base-page";
-import {MainServiceProvider} from "../main-service/main-service";
+import {MainServiceProvider} from "../../providers/main-service/main-service";
 
 export abstract class BaseTabsPage extends BasePage {
 

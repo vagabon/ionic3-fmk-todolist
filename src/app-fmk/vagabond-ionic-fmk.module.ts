@@ -22,7 +22,7 @@ import {LogServiceProvider} from "./providers/log-service/log-service";
 import {BaseServiceProvider} from "./providers/base-service";
 import {ParamsDirective} from "./directives/params/params";
 import {Firebase} from "@ionic-native/firebase";
-import {MainServiceProvider} from "./components/main-service/main-service";
+import {MainServiceProvider} from "./providers/main-service/main-service";
 
 @NgModule({
 	declarations: [

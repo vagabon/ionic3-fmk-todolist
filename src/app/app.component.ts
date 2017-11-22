@@ -3,7 +3,7 @@ import {Config} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {BaseAppComponent} from "../app-fmk/components/base-app-component/base-app-component";
-import {MainServiceProvider} from "../app-fmk/components/main-service/main-service";
+import {MainServiceProvider} from "../app-fmk/providers/main-service/main-service";
 
 @Component({
   templateUrl: 'app.html'

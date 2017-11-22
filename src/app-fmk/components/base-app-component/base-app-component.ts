@@ -2,7 +2,7 @@ import {ViewChild} from '@angular/core';
 import {Config, Nav} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {MainServiceProvider} from "../main-service/main-service";
+import {MainServiceProvider} from "../../providers/main-service/main-service";
 
 export abstract class BaseAppComponent {
 

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {PaypalServiceProvider} from "../../app-fmk/providers/paypal-service/paypal-service";
-import {MainServiceProvider} from "../../app-fmk/components/main-service/main-service";
+import {MainServiceProvider} from "../../app-fmk/providers/main-service/main-service";
 import {BasePage} from "../../app-fmk/components/base-page/base-page";
 
 /**

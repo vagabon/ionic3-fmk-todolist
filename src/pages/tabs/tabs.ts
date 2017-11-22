@@ -2,7 +2,7 @@ import {Component, Renderer2} from "@angular/core";
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {BaseTabsPage} from "../../app-fmk/components/base-tabs/base-tabs";
 import {AdMobServiceProvider} from "../../app-fmk/providers/ad-mob-service/ad-mob-service";
-import {MainServiceProvider} from "../../app-fmk/components/main-service/main-service";
+import {MainServiceProvider} from "../../app-fmk/providers/main-service/main-service";
 
 @IonicPage({ segment: 'tab', priority: 'high' })
 @Component({
