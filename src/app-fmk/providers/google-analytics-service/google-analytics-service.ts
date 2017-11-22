@@ -36,10 +36,10 @@ export class GoogleAnalyticsServiceProvider {
             this.alertService.presentToast('Error starting GoogleAnalytics : ' + JSON.stringify(error));
           }
         });
+      } else {
+        this.googleAnalytics.trackEvent(event, action);
+        this.googleAnalytics.trackView(page);
       }
-    } else {
-      this.googleAnalytics.trackEvent(event, action);
-      this.googleAnalytics.trackView(page);
     }
   }
 
