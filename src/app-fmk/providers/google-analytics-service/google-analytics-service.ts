@@ -12,16 +12,18 @@ declare let ga: any;
 export class GoogleAnalyticsServiceProvider {
 
   constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics) {
-    this.platform.ready().then(() => {
-      if (this.platform.is('cordova')) {
-        this.googleAnalytics.startTrackerWithId(this.configService.API_GOOGLE_ANALYTICS).then(() => {
-          console.log('Google analytics is ready now');
-          this.googleAnalytics.debugMode();
-          this.googleAnalytics.setAllowIDFACollection(true);
-          this.googleAnalytics.trackView('/');
-        }).catch(error => { console.error('Error starting GoogleAnalytics', error); });
-      }
-    });
+  }
+
+  start() {
+    if (this.platform.is('cordova')) {
+      this.googleAnalytics.startTrackerWithId(this.configService.API_GOOGLE_ANALYTICS).then(() => {
+        console.log('Google analytics is ready now');
+        this.googleAnalytics.debugMode();
+        this.googleAnalytics.setAllowIDFACollection(true);
+        this.googleAnalytics.trackEvent('launchMobile', 'avosgrattes_1.0').catch((error) => {console.error(error); });
+        this.googleAnalytics.trackView('/');
+      }).catch(error => { console.error('Error starting GoogleAnalytics', error); });
+    }
   }
 
   /**

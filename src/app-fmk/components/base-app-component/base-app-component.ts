@@ -21,7 +21,7 @@ export abstract class BaseAppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.statusBar.styleLightContent();
-      this.googleAnalyticsService.sendPageView("/");
+      this.googleAnalyticsService.start();
     });
     this.initTranslate();
     if (location.href.indexOf("localhost") == -1) {
