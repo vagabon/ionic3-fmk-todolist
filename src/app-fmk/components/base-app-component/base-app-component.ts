@@ -16,11 +16,12 @@ export abstract class BaseAppComponent {
   rootPage:any = "TabsPage";
 
   constructor(protected translate: TranslateService, protected config: Config, protected platform: Platform, protected statusBar: StatusBar, protected splashScreen: SplashScreen,
-              protected googleAnalyticsService: GoogleAnalyticsServiceProvider, protected loggerService:LogServiceProvider, protected dataService:DataFmkServiceProvider) {
+              protected googleAnalyticsService: GoogleAnalyticsServiceProvider, protected loggerService: LogServiceProvider, protected dataService: DataFmkServiceProvider, private debug: boolean = false) {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.statusBar.styleLightContent();
+      this.googleAnalyticsService.debug = this.debug;
       this.googleAnalyticsService.start();
     });
     this.initTranslate();
