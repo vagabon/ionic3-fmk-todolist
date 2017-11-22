@@ -12,6 +12,8 @@ declare let ga: any;
 @Injectable()
 export class GoogleAnalyticsServiceProvider {
 
+  debug: boolean = false;
+
   constructor(public platform: Platform, private configService:ConfigFmkServiceProvider, private googleAnalytics: GoogleAnalytics, private alertService: AlertServiceProvider) {
   }
 
@@ -19,7 +21,9 @@ export class GoogleAnalyticsServiceProvider {
     if (this.platform.is('cordova')) {
       this.googleAnalytics.startTrackerWithId(this.configService.API_GOOGLE_ANALYTICS).then(() => {
         console.log('Google analytics is ready now');
-        this.alertService.presentToast('Google analytics is ready now');
+        if (this.debug === true) {
+          this.alertService.presentToast('Google analytics is ready now');
+        }
         this.googleAnalytics.debugMode();
         this.googleAnalytics.setAllowIDFACollection(true);
         this.googleAnalytics.trackEvent('launchMobile', 'avosgrattes_1.0').catch((error) => {
@@ -28,7 +32,9 @@ export class GoogleAnalyticsServiceProvider {
         this.googleAnalytics.trackView('/');
       }).catch(error => {
         console.error('Error starting GoogleAnalytics', error);
-        this.alertService.presentToast('Error starting GoogleAnalytics : ' + JSON.stringify(error));
+        if (this.debug === true) {
+          this.alertService.presentToast('Error starting GoogleAnalytics : ' + JSON.stringify(error));
+        }
       });
     }
   }
