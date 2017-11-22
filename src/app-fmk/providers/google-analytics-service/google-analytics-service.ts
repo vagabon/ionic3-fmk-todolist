@@ -59,7 +59,8 @@ export class GoogleAnalyticsServiceProvider {
         for (let i=3; i < split.length; i++) {
           newPage += "/" + split[i];
         }
-        ga('send', 'pageview', newPage);
+        console.log(newPage);
+        ga('send', 'event', 'pageview', newPage);
         ga('set', 'page', newPage);
         ga('send', 'pageview');
       }
