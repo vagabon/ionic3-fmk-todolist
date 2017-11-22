@@ -21,6 +21,8 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {LogServiceProvider} from "./providers/log-service/log-service";
 import {BaseServiceProvider} from "./providers/base-service";
 import {ParamsDirective} from "./directives/params/params";
+import {Firebase} from "@ionic-native/firebase";
+import {MainServiceProvider} from "./components/main-service/main-service";
 
 @NgModule({
 	declarations: [
@@ -52,6 +54,7 @@ export class VagabondIonic2FmkModule {
         config.dataProvider || DataFmkServiceProvider,
         HttpServiceProvider,
         BaseServiceProvider,
+        MainServiceProvider,
         LogServiceProvider,
         AlertServiceProvider,
         FacebookServiceProvider,
@@ -63,7 +66,8 @@ export class VagabondIonic2FmkModule {
         AdMobServiceProvider,
         AdMobFree,
         PaypalServiceProvider,
-        PayPal
+        PayPal,
+        Firebase
       ]
     }
   }

@@ -21,7 +21,8 @@ export abstract class BaseDataService {
     facebookPicture: '',
     facebookMail: '',
     language: 'fr',
-    isAdmin: false
+    isAdmin: false,
+    tokenAndroid: ''
   };
 
   dataApp = {

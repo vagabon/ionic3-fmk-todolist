@@ -1,11 +1,8 @@
 import {ViewChild} from '@angular/core';
-import {Config, Nav, Platform} from 'ionic-angular';
+import {Config, Nav} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {TranslateService} from "@ngx-translate/core";
-import {GoogleAnalyticsServiceProvider} from "../../providers/google-analytics-service/google-analytics-service";
-import {LogServiceProvider} from "../../providers/log-service/log-service";
-import {DataFmkServiceProvider} from "../../providers/data-fmk-service/data-fmk-service";
+import {MainServiceProvider} from "../main-service/main-service";
 
 export abstract class BaseAppComponent {
 
@@ -13,41 +10,103 @@ export abstract class BaseAppComponent {
 
   @ViewChild('nav') nav: Nav;
 
-  rootPage:any = "TabsPage";
+  rootPage: any = "TabsPage";
 
-  constructor(protected translate: TranslateService, protected config: Config, protected platform: Platform, protected statusBar: StatusBar, protected splashScreen: SplashScreen,
-              protected googleAnalyticsService: GoogleAnalyticsServiceProvider, protected loggerService: LogServiceProvider, protected dataService: DataFmkServiceProvider) {
-    this.platform.ready().then(() => {
+  constructor(protected config: Config, protected statusBar: StatusBar, protected splashScreen: SplashScreen, protected mainService: MainServiceProvider) {
+    this.mainService.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.statusBar.styleLightContent();
-      this.googleAnalyticsService.start();
+      this.mainService.googleAnalyticsService.start();
+      if (this.mainService.platform.is('cordova')) {
+        this.mainService.platform.is('android') ? this.initializeFireBaseAndroid() : this.initializeFireBaseIos();
+      } else {
+        console.log('Push notifications are not enabled since this is not a real device');
+      }
     });
     this.initTranslate();
     if (location.href.indexOf("localhost") == -1) {
-      this.loggerService.disableLogger();
+      this.mainService.loggerService.disableLogger();
     }
   }
 
   initTranslate() {
     let languagedefault = this.LANGUAGE_DEFAULT;
-    this.translate.setDefaultLang(languagedefault);
-    this.translate.addLangs(['fr', 'en']);
-    this.translate.reloadLang('fr');
-    this.translate.reloadLang('en');
-    if (!this.dataService.data.language) {
-      if (this.translate.getBrowserLang() !== undefined) {
-        languagedefault = this.translate.getBrowserLang();
+    this.mainService.translate.setDefaultLang(languagedefault);
+    this.mainService.translate.addLangs(['fr', 'en']);
+    this.mainService.translate.reloadLang('fr');
+    this.mainService.translate.reloadLang('en');
+    if (!this.mainService.dataService.data.language) {
+      if (this.mainService.translate.getBrowserLang() !== undefined) {
+        languagedefault = this.mainService.translate.getBrowserLang();
       }
-      this.translate.use(languagedefault);
-      this.dataService.data.language = languagedefault;
+      this.mainService.translate.use(languagedefault);
+      this.mainService.dataService.data.language = languagedefault;
     } else {
-      this.translate.use(this.dataService.data.language);
+      this.mainService.translate.use(this.mainService.dataService.data.language);
     }
 
-    this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
+    this.mainService.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
       this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
     });
   }
 
+  private initializeFireBaseAndroid(): Promise<any> {
+    return this.mainService.firebase.getToken()
+      .catch(error => console.error('Error getting token', error))
+      .then(token => {
+        console.log(`The token is ${token}`);
+        Promise.all([
+          this.mainService.firebase.subscribe('firebase-app'),
+          this.mainService.firebase.subscribe('android'),
+          this.mainService.firebase.subscribe(this.mainService.dataService.data.id)
+        ]).then(() => {
+          this.subscribeToPushNotificationEvents();
+        });
+      });
+  }
+
+  private initializeFireBaseIos(): Promise<any> {
+    return this.mainService.firebase.grantPermission()
+      .catch(error => console.error('Error getting permission', error))
+      .then(() => {
+        this.mainService.firebase.getToken()
+          .catch(error => console.error('Error getting token', error))
+          .then(token => {
+            console.log(`The token is ${token}`);
+            Promise.all([
+              this.mainService.firebase.subscribe('firebase-app'),
+              this.mainService.firebase.subscribe('ios'),
+              this.mainService.firebase.subscribe(this.mainService.dataService.data.id)
+            ]).then(() => {
+              this.subscribeToPushNotificationEvents();
+            });
+          });
+      })
+
+  }
+
+  private saveToken(token: any): Promise<any> {
+    this.mainService.dataService.data.tokenAndroid = token;
+    return Promise.resolve(true);
+  }
+
+  private subscribeToPushNotificationEvents(): void {
+
+    this.mainService.firebase.onTokenRefresh().subscribe(
+      token => {
+        this.saveToken(token);
+      },
+      error => {
+        console.error('Error refreshing token', error);
+      });
+    this.mainService.firebase.onNotificationOpen().subscribe(
+      (notification) => {
+        !notification.tap ? console.log('The user was using the app when the notification arrived...') : console.log('The app was closed when the notification arrived...');
+        this.mainService.alertService.promptAlert(notification.title, notification.body);
+      },
+      error => {
+        console.error('Error getting the notification', error);
+      });
+  }
 }
