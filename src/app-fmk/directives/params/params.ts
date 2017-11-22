@@ -3,7 +3,6 @@ import {NavParams, Platform} from 'ionic-angular';
 import {TranslateService} from "@ngx-translate/core";
 import {DataFmkServiceProvider} from "../../providers/data-fmk-service/data-fmk-service";
 import {FacebookServiceProvider} from "../../providers/facebook-service/facebook-service";
-import {GoogleAnalyticsServiceProvider} from "../../providers/google-analytics-service/google-analytics-service";
 import {PaypalServiceProvider} from "../../providers/paypal-service/paypal-service";
 import {AlertServiceProvider} from "../../providers/alert-service/alert-service";
 import {NavController} from "ionic-angular/navigation/nav-controller";
@@ -29,7 +28,7 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
     </ion-card>
 
     <ion-card *ngIf="dataService.data.facebookAccessToken == ''" style="padding: 0; background: transparent; box-shadow: none; margin: 0 10px;">
-      <button ion-button full (click)="facebookService.loginWithFacebook()" style="background: #4267b2;">Login Facebook</button>
+      <button ion-button full (click)="doLoginFacebook()" style="background: #4267b2;">Login Facebook</button>
     </ion-card>
     <ion-card class="label" *ngIf="dataService.data.facebookAccessToken != ''" style="margin: 0 10px;">
       <ion-item>
@@ -37,7 +36,7 @@ import {NavController} from "ionic-angular/navigation/nav-controller";
           <img src="{{dataService.data.facebookPicture}}">
         </ion-avatar>
         <h2>{{'PARAMS_BIENVENUE' | translate}} <b>{{dataService.data.facebookName}}</b></h2>
-        <button ion-button (click)="facebookService.logoutWithFacebook()" item-end style="margin: 0; padding: 5px; box-shadow: none;">
+        <button ion-button (click)="doCloseFacebook()" item-end style="margin: 0; padding: 5px; box-shadow: none;">          
           <ion-icon name="close" item-start></ion-icon>
         </button>
       </ion-item>
@@ -115,12 +114,11 @@ export class ParamsDirective {
   load:boolean;
   donate:boolean = false;
 
-  constructor(private navCtrl: NavController, private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider, public facebookService: FacebookServiceProvider,
-              protected gAService:GoogleAnalyticsServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
+  constructor(private navCtrl: NavController, private platform:Platform, private navParams:NavParams, private translate: TranslateService, private dataService:DataFmkServiceProvider,
+              private facebookService: FacebookServiceProvider, private paypalService:PaypalServiceProvider, private alertService:AlertServiceProvider) {
     if (!this.dataService.data.language) {
       this.dataService.data.language = this.translate.getBrowserLang() !== undefined ? this.translate.getBrowserLang() : this.translate.getDefaultLang();
     }
-    this.gAService.sendPageView("ParamsPage");
 
     let paimentId = this.navParams.get("paimentId");
     if (paimentId && paimentId > 0) {

@@ -29,7 +29,7 @@ export class ParamsPage {
     if (this.translate.getBrowserLang() !== undefined) {
       this.language = this.translate.getBrowserLang();
     }
-    this.gAService.sendPageView("/params");
+    this.gAService.sendPageView();
 
     let paimentId = this.navParams.get("paimentId");
     if (paimentId && paimentId > 0) {
@@ -40,7 +40,7 @@ export class ParamsPage {
   }
 
   ionViewWillEnter() {
-    this.gAService.sendPageView("/params");
+    this.gAService.sendPageView();
   }
 
   doPaypalPaiementCordova() {

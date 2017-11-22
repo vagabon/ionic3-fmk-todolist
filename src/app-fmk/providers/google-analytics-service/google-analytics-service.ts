@@ -47,24 +47,24 @@ export class GoogleAnalyticsServiceProvider {
    * Sends the page view to GA.
    * @param  {string} page The path portion of a URL. This value should start with a slash (/) character.
    */
-  sendPageView(page: string = '/') {
+  sendPageView() {
     if (this.platform.is('cordova')) {
       this.start(location.hash, 'pageviewMobile', location.hash);
     }
     try {
-      if (location.href.indexOf('localhost') != -1) {
+      if (location.href.indexOf('localhost') == -1) {
         let page2 = location.href;
         let split = page2.split("/");
         let newPage = "";
         for (let i=3; i < split.length; i++) {
           newPage += "/" + split[i];
         }
-        console.log(newPage);
         ga('send', 'event', 'pageview', newPage);
         ga('set', 'page', newPage);
         ga('send', 'pageview');
       }
     } catch (exception) {
+      alert(JSON.parse(exception));
       console.error('GOOGLE_ANALYTICS', exception);
     }
   }
