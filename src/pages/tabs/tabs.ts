@@ -16,7 +16,8 @@ export class TabsPage extends BaseTabsPage {
     { title: 'TAB_STATS', icon: 'md-stats', page: 'ListsPage' }
   ];
 
-  constructor(protected navCtrl: NavController, protected navParams:NavParams, protected renderer: Renderer2, protected mainService:MainServiceProvider, protected adMobService:AdMobServiceProvider) {
+  constructor(protected navCtrl: NavController, protected navParams:NavParams, protected renderer: Renderer2, protected mainService:MainServiceProvider,
+              protected adMobService:AdMobServiceProvider) {
     super(navCtrl, navParams, renderer, mainService, adMobService, true);
   }
 

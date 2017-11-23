@@ -55,7 +55,7 @@ export class GoogleAnalyticsServiceProvider {
     if (this.platform.is('cordova')) {
       this.start(location.hash, 'pageviewMobile', location.hash);
     } else {
-      if (location.href.indexOf('localhost') != -1) {
+      if (location.href.indexOf('localhost') == -1) {
         let page2 = location.href;
         let split = page2.split("/");
         let newPage = "";
