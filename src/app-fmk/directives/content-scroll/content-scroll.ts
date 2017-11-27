@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
   selector: 'app-content-scroll',
   template: `
-    <ion-scroll class="content-scrool-flex" scrollX="true" scrollY="true">
+    <ion-scroll class="content-scrool-flex" scrollX="false" scrollY="true">
       <div style="margin: 20px auto; position: absolute; width: 100%; text-align: center; color: white;" *ngIf="loading === false && list && list.length == 0">
         {{notFound}}
       </div>
