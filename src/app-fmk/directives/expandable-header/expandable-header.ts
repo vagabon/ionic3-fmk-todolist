@@ -61,29 +61,32 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
   scrollFlexTop = 0;
 
   private doScrollContentFlex() {
-    let ionScroll = this.element.nativeElement.parentNode.getElementsByClassName("scroll-content");
+    let ionScroll = this.element.nativeElement.parentNode.getElementsByTagName("ion-scroll");
     for (var i = 0; i < ionScroll.length; i++) {
       if (!ionScroll[i].hasAttribute('done')) {
         ionScroll[i].setAttribute('done', 'true');
-        let doEvent = (event) => {
-          if (!this.hide) {
-            event.preventDefault();
-            if (!this.platform.is('cordova')) {
-              event.srcElement.scrollTo(0, 0);
+        let scrollContent = ionScroll[i].getElementsByClassName("scroll-content");
+        for (var j = 0; j < scrollContent.length; j++) {
+          let doEvent = (event) => {
+            if (!this.hide) {
+              event.preventDefault();
+              if (!this.platform.is('cordova')) {
+                event.srcElement.scrollTo(0, 0);
+              }
+              this.scrollFlexTop = 0;
             }
-            this.scrollFlexTop = 0;
+          };
+          let doEventScrool = (event) => {
+            doEvent(event);
+            if (this.hide) {
+              this.scrollFlexTop = event.srcElement.scrollTop;
+            }
           }
-        };
-        let doEventScrool = (event) => {
-          doEvent(event);
-          if (this.hide) {
-            this.scrollFlexTop = event.srcElement.scrollTop;
-          }
+          scrollContent[j].removeEventListener('scroll', doEventScrool);
+          scrollContent[j].addEventListener('scroll', doEventScrool);
+          scrollContent[j].removeEventListener('touchmove', doEvent);
+          scrollContent[j].addEventListener('touchmove', doEvent);
         }
-        ionScroll[i].removeEventListener('scroll', doEventScrool);
-        ionScroll[i].addEventListener('scroll', doEventScrool);
-        ionScroll[i].removeEventListener('touchmove', doEvent);
-        ionScroll[i].addEventListener('touchmove', doEvent);
       }
     }
     let contentScrool = this.element.nativeElement.parentNode.getElementsByClassName("scroll-content");
