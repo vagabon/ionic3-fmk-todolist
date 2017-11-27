@@ -10,6 +10,8 @@ export class ConfigFmkServiceProvider {
   TITLE = "app_title";
   VERSION = "app_version";
 
+  API_LOG_DEBUG: boolean = false;
+
   PATH_USER = "user";
 
   API_FACEBOOK_TEST: string = 'API_FACEBOOK_TEST';

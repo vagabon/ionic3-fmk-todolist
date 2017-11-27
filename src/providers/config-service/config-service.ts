@@ -12,6 +12,8 @@ export class ConfigServiceProvider {
 
   PATH_USER = "nobrain/user";
 
+  API_LOG_DEBUG: boolean = false;
+
   API_FACEBOOK_TEST: string = '116657432071061';
   API_FACEBOOK_PROD: string = '1969648299943798';
 

@@ -72,9 +72,11 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
               event.srcElement.scrollTo(0, 0);
             }
             this.scrollFlexTop = 0;
+            return;
           }
         };
         let doEventScrool = (event) => {
+          console.log(event)
           doEvent(event);
           if (this.hide) {
             this.scrollFlexTop = event.srcElement.scrollTop;

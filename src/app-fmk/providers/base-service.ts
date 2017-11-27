@@ -48,15 +48,17 @@ export class BaseServiceProvider {
   }
 
   postToAppLog(userId, userName, categorie, action, date) {
-    let appLog = {
-      app: this.configService.TITLE,
-      userId: userId,
-      userName: userName,
-      categorie: categorie,
-      action: action,
-      date: date
+    if (this.configService.API_LOG_DEBUG) {
+      let appLog = {
+        app: this.configService.TITLE,
+        userId: userId,
+        userName: userName,
+        categorie: categorie,
+        action: action,
+        date: date
+      }
+      this.httpPost(this.URL + "applog/update", appLog).subscribe();
     }
-    this.httpPost(this.URL + "applog/update", appLog).subscribe();
   }
 
   addDataToEntityCode(entities, data) {

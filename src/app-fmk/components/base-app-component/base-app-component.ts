@@ -20,8 +20,6 @@ export abstract class BaseAppComponent {
       this.mainService.googleAnalyticsService.start();
       if (this.mainService.platform.is('cordova')) {
         this.mainService.platform.is('android') ? this.initializeFireBaseAndroid() : this.initializeFireBaseIos();
-      } else {
-        console.log('Push notifications are not enabled since this is not a real device');
       }
     });
     this.initTranslate();

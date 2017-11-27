@@ -59,6 +59,46 @@ export class CreatePage extends BasePage {
       }
       this.item.id = maxId + 1;
       this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
+      this.mainService.dataService.data.lists.push(this.item);
     }
     this.mainService.dataService.save();
     if (this.navCtrl.length() > 1) {

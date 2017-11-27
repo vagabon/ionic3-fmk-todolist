@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
   selector: 'app-content-scroll',
   template: `
-    <div class="content-scrool-flex">
+    <ion-scroll class="content-scrool-flex" scrollX="true" scrollY="true">
       <div style="margin: 20px auto; position: absolute; width: 100%; text-align: center; color: white;" *ngIf="loading === false && list && list.length == 0">
         {{notFound}}
       </div>
@@ -18,7 +18,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
           <ion-icon name="ios-arrow-down"></ion-icon>
         </button>
       </div>
-    </div>
+    </ion-scroll>
   `
 })
 export class ContentScrollDirective {
