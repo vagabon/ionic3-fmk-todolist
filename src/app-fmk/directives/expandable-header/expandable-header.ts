@@ -61,7 +61,7 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
   scrollFlexTop = 0;
 
   private doScrollContentFlex() {
-    let ionScroll = this.element.nativeElement.parentNode.getElementsByClassName("content-scrool-flex");
+    let ionScroll = this.element.nativeElement.parentNode.getElementsByClassName("scroll-content");
     for (var i = 0; i < ionScroll.length; i++) {
       if (!ionScroll[i].hasAttribute('done')) {
         ionScroll[i].setAttribute('done', 'true');
@@ -72,11 +72,9 @@ export class ExpandableHeaderDirective implements OnInit, DoCheck {
               event.srcElement.scrollTo(0, 0);
             }
             this.scrollFlexTop = 0;
-            return;
           }
         };
         let doEventScrool = (event) => {
-          console.log(event)
           doEvent(event);
           if (this.hide) {
             this.scrollFlexTop = event.srcElement.scrollTop;
