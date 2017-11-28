@@ -100,15 +100,6 @@ ion-card {
 
 @media screen and (max-width: 800px) {
   .tab-button { -ms-flex: 1; }
-  app-information {
-    .filmographie {
-      height: 115px;
-    }
-    .cast-member {
-      height: 180px;
-    }
-    .button-md { height: 2.6rem; font-size: 1.1rem; }
-  }
 }
 
 @media screen and (max-width: 600px) {
