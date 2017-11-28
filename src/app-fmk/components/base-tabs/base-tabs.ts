@@ -31,6 +31,7 @@ export abstract class BaseTabsPage extends BasePage {
 
   slide(e) {
     if (!this.mainService.platform.is( 'android') && !this.mainService.platform.is( 'ios')) {
+      console.log(e)
       this.doSwipe(e, e.direction == '4');
     }
   }
@@ -56,7 +57,7 @@ export abstract class BaseTabsPage extends BasePage {
     let element = event.target;
     let canSlide = true;
     while (element.parentElement) {
-      if (element.id == "map" || element.classList.contains("slides") || element.classList.contains("active-slide")) {
+      if (element.id == "map" || element.classList.contains("slides") || element.classList.contains("no-tab-slide")) {
         canSlide = false;
         break;
       }

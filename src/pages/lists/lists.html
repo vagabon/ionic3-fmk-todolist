@@ -10,7 +10,7 @@
 
   <app-content-scroll notFound="Pas de listes trouvées" (loadMoreEmitter)="loadMore()" [loading]="loading" [list]="lists" [search]="search">
 
-    <ion-list style="width: 100%;">
+    <ion-list style="width: 100%;" class="no-tab-slide">
       <!--(ionItemReorder)=""-->
       <ion-item-group reorder="true" (ionItemReorder)="doReorderItemsList($event)">
       <ion-item-sliding #itemSelect *ngFor="let item of mainService.dataService.data.lists" (click)="doSelectItemList(item)" [style.borderLeft]="'10px solid ' + item.color">
