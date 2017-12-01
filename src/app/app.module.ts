@@ -6,7 +6,6 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HttpModule} from "@angular/http";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {FacebookModule} from "ngx-facebook";
 import {ConfigServiceProvider} from '../providers/config-service/config-service';
@@ -15,9 +14,12 @@ import {VagabondIonic2FmkModule} from "../app-fmk/vagabond-ionic-fmk.module";
 import {DataFmkServiceProvider} from "../app-fmk/providers/data-fmk-service/data-fmk-service";
 import {MyApp} from './app.component';
 import { DataServiceProvider } from '../providers/data-service/data-service';
+import {MultiTranslateHttpLoader} from "../app-fmk/translate/multi-translate-http-loader";
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new MultiTranslateHttpLoader(http, [
+    {prefix: './assets/i18n/', suffix: '.json'}
+  ]);
 }
 
 export function getLocationStategy() {
