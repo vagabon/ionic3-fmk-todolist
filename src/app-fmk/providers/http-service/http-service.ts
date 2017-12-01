@@ -44,14 +44,15 @@ export class HttpServiceProvider {
 
   httpPost(url, json) {
     return Observable.create(observer => {
-      console.log('POST URL', url);
       this.http.post(url, json).map(res => res.json()).subscribe(data => {
+        console.log('POST URL', url, json, data);
         if (!this.isException(url, data)) {
           observer.next(data);
         } else {
           observer.error(data);
         }
       }, error => {
+        console.error('POST URL', url, json, error);
         this.showError(url, error);
         observer.error(error);
       });

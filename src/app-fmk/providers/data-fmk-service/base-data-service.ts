@@ -83,7 +83,6 @@ export abstract class BaseDataService {
           dataSave[i] = this.data[i];
         }
       }
-      console.log('SAVE DATA', dataSave);
       this.baseService.httpService.httpPost(this.baseService.URL + this.configService.PATH_USER + '/update', dataSave).subscribe((data) => {
         resolve(data);
       }, (error) => {
