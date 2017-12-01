@@ -31,7 +31,6 @@ export abstract class BaseTabsPage extends BasePage {
 
   slide(e) {
     if (!this.mainService.platform.is( 'android') && !this.mainService.platform.is( 'ios')) {
-      console.log(e)
       this.doSwipe(e, e.direction == '4');
     }
   }
